@@ -6,6 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.inventory.model.CustomerModel;
+import com.inventory.model.VendorModel;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -14,25 +23,36 @@ import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.JToggleButton;
 import javax.swing.JTextPane;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class Vendor extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
+	private JTextField vcode;
+	private JTextField vname;
+	private JTextField vcity;
+	private JTextField vpincode;
+	private JTextField vcontacts;
+	private JTextField vdesignation;
+	private JTextField voffice;
+	private JTextField vfax;
+	private JTextField vfactory;
+	private JTextField vmobile;
+	private JTextField vpager;
+	private JTextField vemail;
+	private JTextField vesicode;
+	private JTextField vurl;
+	private JTextField vecc;
+	private JTable table;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
@@ -55,7 +75,7 @@ public class Vendor extends JFrame {
 	 */
 	public Vendor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 800);
+		setBounds(1000, 9000, 1200, 1500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,17 +91,17 @@ public class Vendor extends JFrame {
 		lblName.setBounds(10, 120, 40, 19);
 		contentPane.add(lblName);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField.setBounds(101, 80, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		vcode = new JTextField();
+		vcode.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vcode.setBounds(101, 72, 86, 28);
+		contentPane.add(vcode);
+		vcode.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_1.setBounds(99, 117, 259, 28);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		vname = new JTextField();
+		vname.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vname.setBounds(99, 117, 259, 28);
+		contentPane.add(vname);
+		vname.setColumns(10);
 		
 		JLabel lblAddress = new JLabel("Address");
 		lblAddress.setFont(new Font("Times New Roman", Font.BOLD, 16));
@@ -95,48 +115,48 @@ public class Vendor extends JFrame {
 		
 		JLabel lblPincode = new JLabel("PinCode");
 		lblPincode.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblPincode.setBounds(9, 287, 56, 19);
+		lblPincode.setBounds(404, 244, 56, 19);
 		contentPane.add(lblPincode);
 		
 		JLabel lblContact = new JLabel("Contact");
 		lblContact.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblContact.setBounds(10, 321, 52, 19);
+		lblContact.setBounds(13, 286, 52, 19);
 		contentPane.add(lblContact);
 		
 		JLabel lblDesignation = new JLabel("Designation");
 		lblDesignation.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblDesignation.setBounds(10, 370, 80, 19);
+		lblDesignation.setBounds(398, 286, 80, 19);
 		contentPane.add(lblDesignation);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textArea.setLineWrap(true);
-		textArea.setBounds(99, 164, 259, 53);
-		contentPane.add(textArea);
+		JTextArea vadress = new JTextArea();
+		vadress.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vadress.setLineWrap(true);
+		vadress.setBounds(99, 164, 259, 53);
+		contentPane.add(vadress);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_2.setBounds(101, 245, 246, 28);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		vcity = new JTextField();
+		vcity.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vcity.setBounds(101, 245, 246, 28);
+		contentPane.add(vcity);
+		vcity.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_3.setColumns(10);
-		textField_3.setBounds(101, 284, 246, 28);
-		contentPane.add(textField_3);
+		vpincode = new JTextField();
+		vpincode.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vpincode.setColumns(10);
+		vpincode.setBounds(506, 245, 246, 28);
+		contentPane.add(vpincode);
 		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_4.setColumns(10);
-		textField_4.setBounds(101, 318, 246, 28);
-		contentPane.add(textField_4);
+		vcontacts = new JTextField();
+		vcontacts.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vcontacts.setColumns(10);
+		vcontacts.setBounds(101, 281, 246, 28);
+		contentPane.add(vcontacts);
 		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_5.setColumns(10);
-		textField_5.setBounds(101, 371, 246, 28);
-		contentPane.add(textField_5);
+		vdesignation = new JTextField();
+		vdesignation.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vdesignation.setColumns(10);
+		vdesignation.setBounds(517, 281, 246, 28);
+		contentPane.add(vdesignation);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(486, 126, 1, 263);
@@ -152,14 +172,14 @@ public class Vendor extends JFrame {
 		
 		JLabel lblRemarks = new JLabel("Remarks");
 		lblRemarks.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblRemarks.setBounds(473, 79, 86, 19);
+		lblRemarks.setBounds(446, 52, 86, 19);
 		contentPane.add(lblRemarks);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textArea_1.setLineWrap(true);
-		textArea_1.setBounds(473, 119, 391, 152);
-		contentPane.add(textArea_1);
+		JTextArea vremarks = new JTextArea();
+		vremarks.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vremarks.setLineWrap(true);
+		vremarks.setBounds(473, 82, 391, 152);
+		contentPane.add(vremarks);
 		
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(398, 93, 1, 263);
@@ -170,110 +190,271 @@ public class Vendor extends JFrame {
 		contentPane.add(separator_2);
 		
 		JSeparator separator_4 = new JSeparator();
-		separator_4.setBounds(10, 429, 856, 2);
+		separator_4.setBounds(10, 338, 856, 2);
 		contentPane.add(separator_4);
 		
-		JLabel lblNewLabel_1 = new JLabel("Office");
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(10, 445, 41, 19);
-		contentPane.add(lblNewLabel_1);
+		voffice = new JTextField();
+		voffice.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		voffice.setColumns(10);
+		voffice.setBounds(99, 361, 197, 28);
+		contentPane.add(voffice);
 		
-		textField_6 = new JTextField();
-		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		textField_6.setColumns(10);
-		textField_6.setBounds(101, 442, 197, 28);
-		contentPane.add(textField_6);
-		
-		textField_7 = new JTextField();
-		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		textField_7.setColumns(10);
-		textField_7.setBounds(398, 442, 197, 28);
-		contentPane.add(textField_7);
+		vfax = new JTextField();
+		vfax.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		vfax.setColumns(10);
+		vfax.setBounds(367, 356, 197, 28);
+		contentPane.add(vfax);
 		
 		JLabel lblFactory = new JLabel("Factory");
 		lblFactory.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblFactory.setBounds(633, 442, 51, 19);
+		lblFactory.setBounds(596, 365, 51, 19);
 		contentPane.add(lblFactory);
 		
-		textField_8 = new JTextField();
-		textField_8.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		textField_8.setColumns(10);
-		textField_8.setBounds(704, 442, 154, 28);
-		contentPane.add(textField_8);
+		vfactory = new JTextField();
+		vfactory.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		vfactory.setColumns(10);
+		vfactory.setBounds(677, 361, 154, 28);
+		contentPane.add(vfactory);
 		
 		JLabel lblMobile = new JLabel("Mobile");
 		lblMobile.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblMobile.setBounds(17, 489, 48, 19);
+		lblMobile.setBounds(17, 400, 48, 19);
 		contentPane.add(lblMobile);
 		
-		textField_9 = new JTextField();
-		textField_9.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		textField_9.setColumns(10);
-		textField_9.setBounds(101, 481, 197, 28);
-		contentPane.add(textField_9);
+		vmobile = new JTextField();
+		vmobile.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		vmobile.setColumns(10);
+		vmobile.setBounds(101, 396, 197, 28);
+		contentPane.add(vmobile);
 		
 		JLabel label_1 = new JLabel("Fax");
 		label_1.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		label_1.setBounds(332, 445, 41, 19);
+		label_1.setBounds(316, 365, 41, 19);
 		contentPane.add(label_1);
 		
 		JLabel lblPager = new JLabel("Pager");
 		lblPager.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblPager.setBounds(335, 489, 48, 19);
+		lblPager.setBounds(310, 400, 48, 19);
 		contentPane.add(lblPager);
 		
-		textField_10 = new JTextField();
-		textField_10.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		textField_10.setColumns(10);
-		textField_10.setBounds(398, 481, 197, 28);
-		contentPane.add(textField_10);
+		vpager = new JTextField();
+		vpager.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		vpager.setColumns(10);
+		vpager.setBounds(367, 396, 197, 28);
+		contentPane.add(vpager);
 		
 		JSeparator separator_5 = new JSeparator();
-		separator_5.setBounds(10, 536, 856, 2);
+		separator_5.setBounds(10, 430, 856, 14);
 		contentPane.add(separator_5);
 		
-		textField_11 = new JTextField();
-		textField_11.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_11.setColumns(10);
-		textField_11.setBounds(101, 549, 197, 28);
-		contentPane.add(textField_11);
+		vemail = new JTextField();
+		vemail.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vemail.setColumns(10);
+		vemail.setBounds(101, 447, 303, 28);
+		contentPane.add(vemail);
 		
-		textField_12 = new JTextField();
-		textField_12.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_12.setColumns(10);
-		textField_12.setBounds(101, 598, 197, 28);
-		contentPane.add(textField_12);
+		vesicode = new JTextField();
+		vesicode.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vesicode.setColumns(10);
+		vesicode.setBounds(99, 480, 197, 28);
+		contentPane.add(vesicode);
 		
-		textField_13 = new JTextField();
-		textField_13.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_13.setColumns(10);
-		textField_13.setBounds(430, 549, 197, 28);
-		contentPane.add(textField_13);
+		vurl = new JTextField();
+		vurl.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vurl.setColumns(10);
+		vurl.setBounds(495, 447, 369, 28);
+		contentPane.add(vurl);
 		
-		textField_14 = new JTextField();
-		textField_14.setFont(new Font("Monospaced", Font.PLAIN, 16));
-		textField_14.setColumns(10);
-		textField_14.setBounds(430, 598, 197, 28);
-		contentPane.add(textField_14);
+		vecc = new JTextField();
+		vecc.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		vecc.setColumns(10);
+		vecc.setBounds(434, 486, 213, 28);
+		contentPane.add(vecc);
 		
 		JLabel lblEmail = new JLabel("Email");
 		lblEmail.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblEmail.setBounds(17, 556, 48, 19);
+		lblEmail.setBounds(20, 452, 48, 19);
 		contentPane.add(lblEmail);
 		
 		JLabel lblEsiCode = new JLabel("ESI code");
 		lblEsiCode.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblEsiCode.setBounds(17, 605, 67, 19);
+		lblEsiCode.setBounds(15, 485, 67, 19);
 		contentPane.add(lblEsiCode);
 		
 		JLabel lblUrl = new JLabel("URL");
 		lblUrl.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblUrl.setBounds(332, 556, 48, 19);
+		lblUrl.setBounds(412, 455, 48, 19);
 		contentPane.add(lblUrl);
 		
 		JLabel lblEccCode = new JLabel("ECC code");
 		lblEccCode.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblEccCode.setBounds(332, 605, 67, 19);
+		lblEccCode.setBounds(345, 485, 67, 19);
 		contentPane.add(lblEccCode);
+		
+		JMenuItem mntmViewAllVendors = new JMenuItem("view all Vendors");
+		mntmViewAllVendors.setIcon(new ImageIcon(Vendor.class.getResource("/inventory/view all.png")));
+		mntmViewAllVendors.setFont(new Font("Arial", Font.BOLD, 14));
+		mntmViewAllVendors.setBounds(82, 11, 198, 29);
+		contentPane.add(mntmViewAllVendors);
+		
+		
+		
+		
+		//saving value 
+		JMenuItem menuItem_1 = new JMenuItem("save");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				VendorModel vendorModel = new VendorModel();
+				vendorModel.setAddress(vadress.getText());
+				vendorModel.setCity(vcity.getText());
+				vendorModel.setCode(vcode.getText());
+				vendorModel.setContact(Integer.parseInt(vcontacts.getText()));
+				
+				vendorModel.setDesignation(vdesignation.getText());
+				
+				vendorModel.setEcc(vecc.getText());
+				vendorModel.setEmail(vemail.getText());
+				vendorModel.setFactory(Integer.parseInt(vfactory.getText()));
+				vendorModel.setFax(Integer.parseInt(vfax.getText()));
+				
+				vendorModel.setMobile(Integer.parseInt(vmobile.getText()));
+				vendorModel.setName(vname.getText());
+				vendorModel.setOffice(Integer.parseInt(voffice.getText()));
+				vendorModel.setPager(Integer.parseInt(vpager.getText()));
+				
+				vendorModel.setPinCode(Integer.parseInt(vpincode.getText()));
+				//customerModel.setRange(vrange.getText());
+				vendorModel.setRemarks(vremarks.getText());
+				//customerModel.setStd(std.getText());
+				vendorModel.setUrl(vurl.getText());
+		vendorModel.setEci(vesicode.getText());
+				//customerModel.setVendor(vendor.getText());
+				//customerModel.setEsi()	
+				/*if(address.getText().length()==0)
+				{
+						
+				
+				JOptionPane.showMessageDialog(null, "valuue");
+				}
+				JOptionPane.showMessageDialog(null, "saved");*/
+				session.save(vendorModel);
+				
+				
+				
+				@SuppressWarnings("unchecked")
+				List<VendorModel> products = session.createQuery("from VendorModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("code");
+				tableHeaders.add("name");
+				tableHeaders.add("address");
+				tableHeaders.add("city");
+				tableHeaders.add("contact");
+				
+				tableHeaders.add("designation");
+				
+				tableHeaders.add("esi code");
+				tableHeaders.add("ecc");
+				tableHeaders.add("email");
+				tableHeaders.add("factory");
+				tableHeaders.add("fax");
+				//tableHeaders.add("gst");
+				tableHeaders.add("pincode");
+				tableHeaders.add("remarks");
+				tableHeaders.add("office");
+				tableHeaders.add("mobile");
+				tableHeaders.add("pager");
+				//tableHeaders.add("pan");
+				//tableHeaders.add("std");
+				tableHeaders.add("url");
+				//tableHeaders.add("vendor");
+				//tableHeaders.add("range");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					VendorModel model = (VendorModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getCode());
+					oneRow.add(model.getName());
+					oneRow.add(model.getAddress());
+					oneRow.add(model.getCity());
+					oneRow.add(model.getContact());
+					//oneRow.add(model.getDelivered());
+					oneRow.add(model.getDesignation());
+					oneRow.add(model.getEci());
+					//oneRow.add(model.getDiv());
+					oneRow.add(model.getEcc());
+					oneRow.add(model.getEmail());
+					oneRow.add(model.getFactory());
+					oneRow.add(model.getFax());
+					//oneRow.add(model.getGst());
+					oneRow.add(model.getPinCode());
+					oneRow.add(model.getRemarks());
+					oneRow.add(model.getOffice());
+					oneRow.add(model.getMobile());
+					oneRow.add(model.getPager());
+					//oneRow.add(model.getPan());
+					//oneRow.add(model.getStd());
+					oneRow.add(model.getUrl());
+					//oneRow.add(model.getVendor());
+					//oneRow.add(model.getRange());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		menuItem_1.setIcon(new ImageIcon(Vendor.class.getResource("/inventory/save.png")));
+		menuItem_1.setFont(new Font("Arial", Font.BOLD, 14));
+		menuItem_1.setBounds(0, 11, 82, 26);
+		contentPane.add(menuItem_1);
+		
+		JMenuItem menuItem_2 = new JMenuItem("Update");
+		menuItem_2.setIcon(new ImageIcon(Vendor.class.getResource("/inventory/update.png")));
+		menuItem_2.setFont(new Font("Arial", Font.BOLD, 14));
+		menuItem_2.setBounds(280, 11, 129, 29);
+		contentPane.add(menuItem_2);
+		
+		JMenuItem menuItem_3 = new JMenuItem("Delete");
+		menuItem_3.setIcon(new ImageIcon(Vendor.class.getResource("/inventory/delete.png")));
+		menuItem_3.setFont(new Font("Arial", Font.BOLD, 14));
+		menuItem_3.setBounds(403, 13, 129, 29);
+		contentPane.add(menuItem_3);
+		
+		table = new JTable();
+		table.setBounds(316, 659, -117, 63);
+		contentPane.add(table);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(17, 519, 844, 190);
+		contentPane.add(scrollPane);
+		
+		table_1 = new JTable();
+		scrollPane.setViewportView(table_1);
+		
+		JLabel label_2 = new JLabel("Office");
+		label_2.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		label_2.setBounds(24, 359, 41, 19);
+		contentPane.add(label_2);
+		
+		JSeparator separator_6 = new JSeparator();
+		separator_6.setBounds(10, 517, 898, 2);
+		contentPane.add(separator_6);
 	}
 }

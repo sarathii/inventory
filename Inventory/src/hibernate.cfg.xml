@@ -3,21 +3,21 @@
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.connection.url">jdbc:h2:tcp://localhost/~/inventory</property>
-        <property name="hibernate.connection.username">sa</property>
-        <property name="hibernate.connection.password"></property>
-        <property name="hibernate.connection.pool_size">1</property>
-        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvidder</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.show_sql">true</property>
-       <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">org.h2.Driver</property>
+		<property name="hibernate.connection.url">jdbc:h2:tcp://localhost/~/inventory</property>
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password"></property>
+		<property name="hibernate.connection.pool_size">1</property>
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvidder</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 
 
 		<property name="hbm2ddl.auto">update</property>
-                <mapping class="com.inventory.model.RawModel" />
-        
-        <mapping class="com.inventory.model.CustomerModel" />
-    </session-factory>
+		<mapping class="com.inventory.model.RawModel" />
+		<mapping class="com.inventory.model.VendorModel" />
+		<mapping class="com.inventory.model.CustomerModel" />
+	</session-factory>
 </hibernate-configuration>
