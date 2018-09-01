@@ -420,11 +420,7 @@ public class CustomerForm {
 		scrollPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
-				
-				
-				
-				
+
 			}
 		});
 		scrollPane.setBounds(10, 611, 879, 122);
@@ -432,13 +428,13 @@ public class CustomerForm {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
+
 		JMenuItem mntmSave = new JMenuItem("save");
 		mntmSave.setIcon(new ImageIcon("C:\\Users\\Priya\\Pictures\\inventory\\save.png"));
 		mntmSave.setFont(new Font("Arial", Font.BOLD, 14));
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
@@ -467,18 +463,14 @@ public class CustomerForm {
 				customerModel.setStd(std.getText());
 				customerModel.setUrl(url.getText());
 				customerModel.setVendor(vendor.getText());
-				
-				if(address.getText().length()==0)
-				{
-						
-				
-				JOptionPane.showMessageDialog(null, "valuue");
+
+				if (address.getText().length() == 0) {
+
+					JOptionPane.showMessageDialog(null, "valuue");
 				}
 				JOptionPane.showMessageDialog(null, "saved");
 				session.save(customerModel);
-				
-				
-				
+
 				@SuppressWarnings("unchecked")
 				List<CustomerModel> products = session.createQuery("from CustomerModel").list();
 
@@ -544,35 +536,25 @@ public class CustomerForm {
 				session.getTransaction().commit();
 				session.close();
 				sessionFactory.close();
-				
-				
-				
+
 			}
 		});
-		
-		
-		
-		//view all menu item button
+
+		// view all menu item button
 		mntmSave.setBounds(10, 4, 82, 26);
 		frmCustomerDetail.getContentPane().add(mntmSave);
-		
+
 		JMenuItem mntmViewalll = new JMenuItem("view all customer");
 		mntmViewalll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				
-				
-				
-				
-				
+
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				// Query query = session.createQuery("from CustomerModel");
 				// List<CustomerModel> customer = session.createQuery("from
 				// Custom").list();
-			 	@SuppressWarnings("unchecked")
+				@SuppressWarnings("unchecked")
 				List<CustomerModel> products = session.createQuery("from CustomerModel").list();
 
 				Vector<String> tableHeaders = new Vector<String>();
@@ -638,55 +620,18 @@ public class CustomerForm {
 				session.flush();
 				session.close();
 				sessionFactory.close();
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-	
-				
-				
-				
-				
-				
-				
+
 			}
 		});
 		mntmViewalll.setIcon(new ImageIcon(CustomerForm.class.getResource("/inventory/view all.png")));
 		mntmViewalll.setFont(new Font("Arial", Font.BOLD, 14));
 		mntmViewalll.setBounds(92, 4, 198, 29);
 		frmCustomerDetail.getContentPane().add(mntmViewalll);
-		
+
 		JMenuItem mntmUpdate = new JMenuItem("Update");
 		mntmUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
+
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
@@ -717,10 +662,9 @@ public class CustomerForm {
 				customerModel.setVendor(vendor.getText());
 
 				session.update(customerModel);
-				
-				
+
 				session.getTransaction().commit();
-				
+
 				@SuppressWarnings("unchecked")
 				List<CustomerModel> products = session.createQuery("from CustomerModel").list();
 
@@ -789,24 +733,21 @@ public class CustomerForm {
 				session.flush();
 				session.close();
 				sessionFactory.close();
-				
-				
+
 			}
 		});
 		mntmUpdate.setIcon(new ImageIcon(CustomerForm.class.getResource("/inventory/update.png")));
 		mntmUpdate.setFont(new Font("Arial", Font.BOLD, 14));
 		mntmUpdate.setBounds(290, 4, 129, 29);
 		frmCustomerDetail.getContentPane().add(mntmUpdate);
-		
+
 		JMenuItem mntmDelete = new JMenuItem("Delete");
 		mntmDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
-				
-				
-				
+
 				CustomerModel customerModel = new CustomerModel();
 				customerModel.setCode(code1.getText());
 				session.delete(customerModel);
@@ -875,44 +816,27 @@ public class CustomerForm {
 				table.setModel(new DefaultTableModel(tableData, tableHeaders));
 				session.close();
 				sessionFactory.close();
-				
+
 			}
 		});
 		mntmDelete.setIcon(new ImageIcon(CustomerForm.class.getResource("/inventory/delete.png")));
 		mntmDelete.setFont(new Font("Arial", Font.BOLD, 14));
 		mntmDelete.setBounds(413, 6, 129, 29);
 		frmCustomerDetail.getContentPane().add(mntmDelete);
-		
+
 		JButton btnNewButton_2 = new JButton("New button");
 		btnNewButton_2.setIcon(new ImageIcon(CustomerForm.class.getResource("/inventory/viw.png")));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				
-				
-				
-				
-				
-table.getSelectedRow();
-	
-				
+
+				table.getSelectedRow();
+
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				int index = table.getSelectedRow();
-				
-				
-				
-				
-				
-				
-				
-				
 
 				// populating selected row to textbox
-				//display customer data's to tables
-				
-				
+				// display customer data's to tables
+
 				code1.setText(model.getValueAt(index, 0).toString());
 				name.setText(model.getValueAt(index, 1).toString());
 				address.setText(model.getValueAt(index, 2).toString());
@@ -937,59 +861,40 @@ table.getSelectedRow();
 				url.setText(model.getValueAt(index, 21).toString());
 				vendor.setText(model.getValueAt(index, 22).toString());
 				range.setText(model.getValueAt(index, 23).toString());
-					
-				
-							
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
 			}
 		});
 		btnNewButton_2.setBounds(894, 655, 27, 53);
 		frmCustomerDetail.getContentPane().add(btnNewButton_2);
-		
+
 		JSeparator separator_6 = new JSeparator();
 		separator_6.setBounds(10, 30, 617, -5);
 		frmCustomerDetail.getContentPane().add(separator_6);
-		
+
 		JSeparator separator_7 = new JSeparator();
 		separator_7.setBounds(10, 30, 204, 0);
 		frmCustomerDetail.getContentPane().add(separator_7);
-		
+
 		JSeparator separator_8 = new JSeparator();
 		separator_8.setBounds(10, 30, 756, 0);
 		frmCustomerDetail.getContentPane().add(separator_8);
-		
+
 		JSeparator separator_9 = new JSeparator();
 		separator_9.setBounds(10, 37, 911, 2);
 		frmCustomerDetail.getContentPane().add(separator_9);
-		
+
 		JLabel error1 = new JLabel("");
 		error1.setForeground(Color.RED);
 		error1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		error1.setBounds(343, 269, 458, 20);
 		frmCustomerDetail.getContentPane().add(error1);
-		
+
 		JLabel label = new JLabel("");
 		label.setForeground(Color.RED);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		label.setBounds(603, 374, 289, 20);
 		frmCustomerDetail.getContentPane().add(label);
-		
+
 		JLabel label_1 = new JLabel("");
 		label_1.setForeground(Color.RED);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));

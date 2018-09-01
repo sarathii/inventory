@@ -192,4 +192,14 @@ public class CustomerModel implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	public String get()
+	{
+		return name;
+	}
+	
+	
+	
+	
 }

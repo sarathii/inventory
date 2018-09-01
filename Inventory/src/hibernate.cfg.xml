@@ -19,5 +19,6 @@
 		<mapping class="com.inventory.model.RawModel" />
 		<mapping class="com.inventory.model.VendorModel" />
 		<mapping class="com.inventory.model.CustomerModel" />
+		<mapping class="com.inventory.model.MouldModel" />
 	</session-factory>
 </hibernate-configuration>

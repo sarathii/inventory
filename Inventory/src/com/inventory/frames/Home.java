@@ -67,23 +67,31 @@ public class Home extends JFrame {
 		});
 		mnNewMenu.add(mntmCustomermaster);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Vendor Model");
+		JMenuItem mntmNewMenuItem = new JMenuItem("Vendor Master");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Vendor vendor=new Vendor();
+				VendorForm vendor=new VendorForm();
 				
 				vendor.setVisible(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Component Moddel");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Component Master");
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("New menu item");
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("MachineMaster");
 		mnNewMenu.add(mntmNewMenuItem_4);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("New menu item");
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Mould Maaster");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+			MouldMaster mould=new MouldMaster();
+			mould.setVisible(true);
+			
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_5);
 		
 		JMenu mnNewMenu_1 = new JMenu("Transaction");
