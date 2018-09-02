@@ -1,15 +1,10 @@
 package com.inventory.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-// @Table(name="custom")
-public class CustomerModel implements Serializable {
-	// declaring attributes
+public class VendorModel {
 	@Id
 	private String code;
 
@@ -20,23 +15,18 @@ public class CustomerModel implements Serializable {
 	private int pinCode;
 	private int contact;
 	private String designation;
-	private String delivered;
-	private String destiation;
+
 	private String remarks;
 	private int office;
 	private int fax;
 	private int factory;
 	private int mobile;
 	private int pager;
-	private String range;
+
 	private String email;
 	private String url;
-	private String pan;
+	private String eci;
 	private String ecc;
-	private String vendor;
-	private String div;
-	private String gst;
-	private String std;
 
 	public String getCode() {
 		return code;
@@ -44,6 +34,14 @@ public class CustomerModel implements Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -84,22 +82,6 @@ public class CustomerModel implements Serializable {
 
 	public void setDesignation(String designation) {
 		this.designation = designation;
-	}
-
-	public String getDelivered() {
-		return delivered;
-	}
-
-	public void setDelivered(String delivered) {
-		this.delivered = delivered;
-	}
-
-	public String getDestiation() {
-		return destiation;
-	}
-
-	public void setDestiation(String destiation) {
-		this.destiation = destiation;
 	}
 
 	public String getRemarks() {
@@ -150,14 +132,6 @@ public class CustomerModel implements Serializable {
 		this.pager = pager;
 	}
 
-	public String getRange() {
-		return range;
-	}
-
-	public void setRange(String range) {
-		this.range = range;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -174,12 +148,12 @@ public class CustomerModel implements Serializable {
 		this.url = url;
 	}
 
-	public String getPan() {
-		return pan;
+	public String getEci() {
+		return eci;
 	}
 
-	public void setPan(String pan) {
-		this.pan = pan;
+	public void setEci(String eci) {
+		this.eci = eci;
 	}
 
 	public String getEcc() {
@@ -188,52 +162,6 @@ public class CustomerModel implements Serializable {
 
 	public void setEcc(String ecc) {
 		this.ecc = ecc;
-	}
-
-	public String getVendor() {
-		return vendor;
-	}
-
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
-	}
-
-	public String getDiv() {
-		return div;
-	}
-
-	public void setDiv(String div) {
-		this.div = div;
-	}
-
-	public String getGst() {
-		return gst;
-	}
-
-	public void setGst(String gst) {
-		this.gst = gst;
-	}
-
-	public String getStd() {
-		return std;
-	}
-
-	public void setStd(String std) {
-		this.std = std;
-	}
-
-	// getter setter methods
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String get() {
-		return name;
 	}
 
 }

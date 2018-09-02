@@ -225,11 +225,11 @@ public class Raw extends JFrame {
 				RawModel raw = new RawModel();
 				raw.setCode(rawCode.getText());
 
-				int result = JOptionPane.showConfirmDialog(null, "Are you sure you delete   "+rawCode.getText()+"  ?", null,
-						JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(null,
+						"Are you sure you delete   " + rawCode.getText() + "  ?", null, JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					session.delete(raw);
-				
+
 					session.getTransaction().commit();
 				}
 

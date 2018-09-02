@@ -45,64 +45,63 @@ public class Home extends JFrame {
 	public Home() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 635, 395);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnNewMenu = new JMenu("Masters");
 		menuBar.add(mnNewMenu);
-		
+
 		JMenuItem mntmCustomermaster = new JMenuItem("CustomerMaster");
 		mntmCustomermaster.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				///SwingUtilities.getWindowAncestor(this).setVisible(false);
+				/// SwingUtilities.getWindowAncestor(this).setVisible(false);
 
-				//((Window) new CustomerModel()).setVisible(true); 
-				//this.frame.dispose();
-			CustomerForm.main(null);
-			//JOptionPane.showMessageDialog(null," Fuck");
-			
-				
+				// ((Window) new CustomerModel()).setVisible(true);
+				// this.frame.dispose();
+				CustomerForm.main(null);
+				// JOptionPane.showMessageDialog(null," Fuck");
+
 			}
 		});
 		mnNewMenu.add(mntmCustomermaster);
-		
+
 		JMenuItem mntmNewMenuItem = new JMenuItem("Vendor Master");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VendorForm vendor=new VendorForm();
-				
+				VendorForm vendor = new VendorForm();
+
 				vendor.setVisible(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
-		
+
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Component Master");
 		mnNewMenu.add(mntmNewMenuItem_1);
-		
+
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("MachineMaster");
 		mnNewMenu.add(mntmNewMenuItem_4);
-		
+
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Mould Maaster");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
-			MouldMaster mould=new MouldMaster();
-			mould.setVisible(true);
-			
+
+				MouldMaster mould = new MouldMaster();
+				mould.setVisible(true);
+
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_5);
-		
+
 		JMenu mnNewMenu_1 = new JMenu("Transaction");
 		menuBar.add(mnNewMenu_1);
-		
+
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mnNewMenu_1.add(mntmNewMenuItem_2);
-		
+
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("New menu item");
 		mnNewMenu_1.add(mntmNewMenuItem_3);
-		
+
 		JMenu mnNewMenu_2 = new JMenu("Reports");
 		menuBar.add(mnNewMenu_2);
 		contentPane = new JPanel();
