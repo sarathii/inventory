@@ -18,26 +18,32 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.fasterxml.classmate.members.RawConstructor;
+import com.inventory.model.ComponentModel;
 import com.inventory.model.CustomerModel;
 import com.inventory.model.MouldModel;
 import com.inventory.model.RawModel;
 
 import javax.swing.JTextField;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+@Entity
 public class ComponentMaster extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField comName;
 	private JTextField comPartno;
+	@Id
 	private JTextField comPartCode;
 	private JTextField hsnCode;
 	private JTextField norm1;
@@ -56,7 +62,7 @@ public class ComponentMaster extends JFrame {
 	private JTextField from4;
 	private JTextField to4;
 	private JLabel lblFettlingRate;
-	private JTextField amRate;
+	private JTextField fRate;
 	private JLabel lblPackagingMode;
 	private JComboBox packMode;
 	private JLabel lblNoOfCavities;
@@ -396,11 +402,11 @@ public class ComponentMaster extends JFrame {
 		lblFettlingRate.setBounds(21, 517, 81, 17);
 		contentPane.add(lblFettlingRate);
 
-		amRate = new JTextField();
-		amRate.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		amRate.setColumns(10);
-		amRate.setBounds(123, 517, 115, 22);
-		contentPane.add(amRate);
+		fRate = new JTextField();
+		fRate.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		fRate.setColumns(10);
+		fRate.setBounds(123, 517, 115, 22);
+		contentPane.add(fRate);
 
 		lblPackagingMode = new JLabel("Packaging Mode");
 		lblPackagingMode.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -457,7 +463,69 @@ public class ComponentMaster extends JFrame {
 		table.setBounds(35, 582, 814, 146);
 		contentPane.add(table);
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		button = new JButton("Save");
+		button.addActionListener(new ActionListener() {
+		
+			
+			//to save
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				
+				ComponentModel   componentModel=new ComponentModel();
+				componentModel.setcCode(cusCombo.getSelectedItem().toString());
+				componentModel.setcName(cusName.getText());
+				componentModel.setRawCode(rawCombo.getSelectedItem().toString());
+				componentModel.setRawName(rawName.getText());
+				componentModel.setComponenetName(comName.getText());
+				componentModel.setCompPartno(Long.parseLong(comPartno.getText()));
+				componentModel.setPartCode(comPartCode.getText());
+				componentModel.setHsnCode(hsnCode.getText());
+				componentModel.setMouldCode(hsnCode.getText());
+				componentModel.setFrom1(new Date(from1.getText()));
+				componentModel.setFrom2(new Date(from2.getText()));
+				componentModel.setFrom3(new Date(from3.getText()));
+				componentModel.setFrom4(new Date(from4.getText()));
+				componentModel.setNorm1(Long.parseLong(norm1.getText()));
+				componentModel.setNorm2(Long.parseLong(norm2.getText()));
+				componentModel.setNorm3(Long.parseLong(norm3.getText()));
+				componentModel.setNorm4(Long.parseLong(norm4.getText()));
+				componentModel.setTo1(new Date(to1.getText()));
+				componentModel.setTo2(new Date(to2.getText()));
+				componentModel.setTo3(new Date(to3.getText()));
+				componentModel.setTo4(new Date(to4.getText()));
+componentModel.setAmValue(Long.parseLong(aValue.getText()));				
+componentModel.setAmFrom(new Date(amFrom.getText()));
+componentModel.setAmQty(Long.parseLong(amQty.getText()));
+componentModel.setFettlingRate(Long.parseLong(fRate.getText()));
+componentModel.setNoCavities(Long.parseLong(noCav.getText()));
+				componentModel.setMouldCode(mouldCombo.getSelectedItem().toString());
+				componentModel.setMouldName(mouldName.getText());
+				componentModel.setPackMode(packMode.getSelectedItem().toString());
+				
+				
+				
+session.save(componentModel);
+session.getTransaction().commit();
+session.close();
+sessionFactory.close();
+			}
+		});
 		button.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/save.png")));
 		button.setFont(new Font("Tahoma", Font.BOLD, 14));
 		button.setBounds(10, 0, 102, 29);
@@ -474,5 +542,9 @@ public class ComponentMaster extends JFrame {
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		button_2.setBounds(228, 0, 102, 29);
 		contentPane.add(button_2);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(852, 637, 89, 47);
+		contentPane.add(btnNewButton);
 	}
 }

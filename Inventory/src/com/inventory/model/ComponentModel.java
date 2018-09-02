@@ -2,9 +2,11 @@ package com.inventory.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+@Entity
 public class ComponentModel {
 
 	private String cName;
@@ -17,6 +19,7 @@ public class ComponentModel {
 	private String mouldName;
 
 	private String componenetName;
+	@Id
 	private Long CompPartno;
 	private String partCode;
 	private String hsnCode;
