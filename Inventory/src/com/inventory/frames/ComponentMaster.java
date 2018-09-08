@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,20 +31,25 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-@Entity
+import javax.swing.JScrollPane;
+
 public class ComponentMaster extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField comName;
 	private JTextField comPartno;
-	@Id
+
 	private JTextField comPartCode;
 	private JTextField hsnCode;
 	private JTextField norm1;
@@ -78,6 +84,7 @@ public class ComponentMaster extends JFrame {
 	private JButton button_2;
 	private JLabel rawName;
 	private JLabel cusName;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -293,54 +300,63 @@ public class ComponentMaster extends JFrame {
 		contentPane.add(lblToDate);
 
 		norm1 = new JTextField();
+		norm1.setText("0");
 		norm1.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm1.setColumns(10);
 		norm1.setBounds(48, 314, 115, 28);
 		contentPane.add(norm1);
 
 		from1 = new JTextField();
+		from1.setText("00/00/0000");
 		from1.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from1.setColumns(10);
 		from1.setBounds(194, 314, 115, 28);
 		contentPane.add(from1);
 
 		to1 = new JTextField();
+		to1.setText("00/00/0000");
 		to1.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to1.setColumns(10);
 		to1.setBounds(351, 314, 115, 28);
 		contentPane.add(to1);
 
 		to2 = new JTextField();
+		to2.setText("0");
 		to2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to2.setColumns(10);
 		to2.setBounds(351, 353, 115, 28);
 		contentPane.add(to2);
 
 		from2 = new JTextField();
+		from2.setText("0");
 		from2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from2.setColumns(10);
 		from2.setBounds(194, 358, 115, 28);
 		contentPane.add(from2);
 
 		norm2 = new JTextField();
+		norm2.setText("0");
 		norm2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm2.setColumns(10);
 		norm2.setBounds(48, 353, 115, 28);
 		contentPane.add(norm2);
 
 		norm3 = new JTextField();
+		norm3.setText("0");
 		norm3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm3.setColumns(10);
 		norm3.setBounds(48, 397, 115, 28);
 		contentPane.add(norm3);
 
 		from3 = new JTextField();
+		from3.setText("0");
 		from3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from3.setColumns(10);
 		from3.setBounds(194, 397, 115, 28);
 		contentPane.add(from3);
 
 		to3 = new JTextField();
+		to3.setText("0");
 		to3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to3.setColumns(10);
 		to3.setBounds(351, 396, 115, 28);
@@ -380,18 +396,21 @@ public class ComponentMaster extends JFrame {
 		contentPane.add(amQty);
 
 		norm4 = new JTextField();
+		norm4.setText("0");
 		norm4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm4.setColumns(10);
 		norm4.setBounds(48, 436, 115, 28);
 		contentPane.add(norm4);
 
 		from4 = new JTextField();
+		from4.setText("0");
 		from4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from4.setColumns(10);
 		from4.setBounds(194, 435, 115, 28);
 		contentPane.add(from4);
 
 		to4 = new JTextField();
+		to4.setText("0");
 		to4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to4.setColumns(10);
 		to4.setBounds(351, 436, 115, 28);
@@ -442,7 +461,8 @@ public class ComponentMaster extends JFrame {
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
-				MouldModel mouldModel = (MouldModel) session.get(MouldModel.class,mouldCombo.getSelectedItem().toString());
+				MouldModel mouldModel = (MouldModel) session.get(MouldModel.class,
+						mouldCombo.getSelectedItem().toString());
 				mouldName.setText(mouldModel.getMouldName());
 				session.getTransaction().commit();
 				session.close();
@@ -459,35 +479,30 @@ public class ComponentMaster extends JFrame {
 		mouldName.setBounds(273, 556, 280, 20);
 		contentPane.add(mouldName);
 
-		table = new JTable();
-		table.setBounds(35, 582, 814, 146);
-		contentPane.add(table);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(35, 582, 814, 146);
+		contentPane.add(scrollPane);
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+
 		button = new JButton("Save");
 		button.addActionListener(new ActionListener() {
-		
-			
-			//to save
-			
+
+			// to save
+
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
-				
-				ComponentModel   componentModel=new ComponentModel();
+
+				ComponentModel componentModel = new ComponentModel();
+
+				// String date =
+				// DateFormat.getDateInstance().format(amFrom.getText());
+
 				componentModel.setcCode(cusCombo.getSelectedItem().toString());
 				componentModel.setcName(cusName.getText());
 				componentModel.setRawCode(rawCombo.getSelectedItem().toString());
@@ -497,6 +512,146 @@ public class ComponentMaster extends JFrame {
 				componentModel.setPartCode(comPartCode.getText());
 				componentModel.setHsnCode(hsnCode.getText());
 				componentModel.setMouldCode(hsnCode.getText());
+				componentModel.setFrom1(new Date(from1.getText()));
+				
+				//if(!"".equals(new Date(from2.getText()))){
+				componentModel.setFrom2(new Date(from2.getText()));
+				//}
+				componentModel.setFrom3(new Date(from3.getText()));
+				componentModel.setFrom4(new Date(from4.getText()));
+				componentModel.setNorm1(Long.parseLong(norm1.getText()));
+				componentModel.setNorm2(Long.parseLong(norm2.getText()));
+				componentModel.setNorm3(Long.parseLong(norm3.getText()));
+				componentModel.setNorm4(Long.parseLong(norm4.getText()));
+				componentModel.setTo1(new Date(to1.getText()));
+				componentModel.setTo2(new Date(to2.getText()));
+				componentModel.setTo3(new Date(to3.getText()));
+				componentModel.setTo4(new Date(to4.getText()));
+				componentModel.setAmValue(Long.parseLong(aValue.getText()));
+				componentModel.setAmFrom(new Date(amFrom.getText()));
+				componentModel.setAmQty(Long.parseLong(amQty.getText()));
+				componentModel.setFettlingRate(Long.parseLong(fRate.getText()));
+				componentModel.setNoCavities(Long.parseLong(noCav.getText()));
+				componentModel.setMouldCode(mouldCombo.getSelectedItem().toString());
+				componentModel.setMouldName(mouldName.getText());
+				componentModel.setPackMode(packMode.getSelectedItem().toString());
+
+				session.save(componentModel);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<ComponentModel> products = session1.createQuery("from ComponentModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("rawcode");
+				tableHeaders.add("rawname");
+				tableHeaders.add("component name");
+				tableHeaders.add("component part no");
+				tableHeaders.add("partcode");
+				tableHeaders.add("hsn/sac code");
+				tableHeaders.add("norm 1");
+				tableHeaders.add("norm 2");
+				tableHeaders.add("norm 3");
+				tableHeaders.add("norm4");
+				tableHeaders.add("from date1");
+				tableHeaders.add("from date 2");
+				tableHeaders.add("from date 3");
+				tableHeaders.add("from date 4");
+				tableHeaders.add("to date 1");
+				tableHeaders.add("to datte 2");
+				tableHeaders.add("to date 3");
+				tableHeaders.add("to datte 4");
+				tableHeaders.add("amortisation value");
+				tableHeaders.add("amortisation from date");
+				tableHeaders.add("amortisation qty");
+				tableHeaders.add("fettling rate");
+				tableHeaders.add("packing mode");
+				tableHeaders.add("no of cavities");
+				tableHeaders.add("mould code");
+				tableHeaders.add("mould name");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					ComponentModel model = (ComponentModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getcCode());
+					oneRow.add(model.getcName());
+					oneRow.add(model.getRawCode());
+					oneRow.add(model.getRawName());
+					oneRow.add(model.getComponenetName());
+					oneRow.add(model.getCompPartno());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getHsnCode());
+					oneRow.add(model.getNorm1());
+					oneRow.add(model.getNorm2());
+					oneRow.add(model.getNorm3());
+					oneRow.add(model.getNorm4());
+					oneRow.add(model.getFrom1());
+					oneRow.add(model.getFrom2());
+					oneRow.add(model.getFrom3());
+					oneRow.add(model.getFrom4());
+					oneRow.add(model.getTo1());
+					oneRow.add(model.getTo2());
+					oneRow.add(model.getTo3());
+					oneRow.add(model.getTo4());
+
+					oneRow.add(model.getAmValue());
+					oneRow.add(model.getAmFrom());
+					oneRow.add(model.getAmQty());
+					oneRow.add(model.getFettlingRate());
+					oneRow.add(model.getPackMode());
+					oneRow.add(model.getNoCavities());
+					oneRow.add(model.getMouldCode());
+					oneRow.add(model.getMouldName());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.getTransaction().commit();
+				session1.close();
+				sessionFactory1.close();
+			}
+		});
+		button.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/save.png")));
+		button.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button.setBounds(10, 0, 102, 29);
+		contentPane.add(button);
+
+		button_1 = new JButton("Update");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+
+				ComponentModel componentModel = new ComponentModel();
+
+				// String today = formatter.format(d);
+				componentModel.setcCode(cusCombo.getSelectedItem().toString());
+				componentModel.setcName(cusName.getText());
+				componentModel.setRawCode(rawCombo.getSelectedItem().toString());
+				componentModel.setRawName(rawName.getText());
+				componentModel.setComponenetName(comName.getText());
+				componentModel.setCompPartno(Long.parseLong(comPartno.getText()));
+				componentModel.setPartCode(comPartCode.getText());
+				componentModel.setHsnCode(hsnCode.getText());
+				componentModel.setMouldCode(hsnCode.getText());
+				/*
+				 * Date str = new Date(from1.getText()); String
+				 * s=from1.getText(); String newString = s.replace('/', 'X');
+				 * 
+				 * componentModel.setFrom1(new Date();
+				 */
 				componentModel.setFrom1(new Date(from1.getText()));
 				componentModel.setFrom2(new Date(from2.getText()));
 				componentModel.setFrom3(new Date(from3.getText()));
@@ -509,42 +664,375 @@ public class ComponentMaster extends JFrame {
 				componentModel.setTo2(new Date(to2.getText()));
 				componentModel.setTo3(new Date(to3.getText()));
 				componentModel.setTo4(new Date(to4.getText()));
-componentModel.setAmValue(Long.parseLong(aValue.getText()));				
-componentModel.setAmFrom(new Date(amFrom.getText()));
-componentModel.setAmQty(Long.parseLong(amQty.getText()));
-componentModel.setFettlingRate(Long.parseLong(fRate.getText()));
-componentModel.setNoCavities(Long.parseLong(noCav.getText()));
+				componentModel.setAmValue(Long.parseLong(aValue.getText()));
+				componentModel.setAmFrom(new Date(amFrom.getText()));
+				componentModel.setAmQty(Long.parseLong(amQty.getText()));
+				componentModel.setFettlingRate(Long.parseLong(fRate.getText()));
+				componentModel.setNoCavities(Long.parseLong(noCav.getText()));
 				componentModel.setMouldCode(mouldCombo.getSelectedItem().toString());
 				componentModel.setMouldName(mouldName.getText());
 				componentModel.setPackMode(packMode.getSelectedItem().toString());
-				
-				
-				
-session.save(componentModel);
-session.getTransaction().commit();
-session.close();
-sessionFactory.close();
+
+				session.update(componentModel);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<ComponentModel> products = session1.createQuery("from ComponentModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("rawcode");
+				tableHeaders.add("rawname");
+				tableHeaders.add("component name");
+				tableHeaders.add("component part no");
+				tableHeaders.add("partcode");
+				tableHeaders.add("hsn/sac code");
+				tableHeaders.add("norm 1");
+				tableHeaders.add("norm 2");
+				tableHeaders.add("norm 3");
+				tableHeaders.add("norm4");
+				tableHeaders.add("from date1");
+				tableHeaders.add("from date 2");
+				tableHeaders.add("from date 3");
+				tableHeaders.add("from date 4");
+				tableHeaders.add("to date 1");
+				tableHeaders.add("to datte 2");
+				tableHeaders.add("to date 3");
+				tableHeaders.add("to datte 4");
+				tableHeaders.add("amortisation value");
+				tableHeaders.add("amortisation from date");
+				tableHeaders.add("amortisation to date");
+				tableHeaders.add("fettling rate");
+				tableHeaders.add("packing mode");
+				tableHeaders.add("no of cavities");
+				tableHeaders.add("mould code");
+				tableHeaders.add("mould name");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					ComponentModel model = (ComponentModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getcCode());
+
+					oneRow.add(model.getcName());
+					oneRow.add(model.getRawCode());
+					oneRow.add(model.getRawName());
+					oneRow.add(model.getComponenetName());
+					oneRow.add(model.getCompPartno());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getHsnCode());
+					oneRow.add(model.getNorm1());
+					oneRow.add(model.getNorm2());
+					oneRow.add(model.getNorm3());
+					oneRow.add(model.getNorm4());
+					oneRow.add(model.getFrom1());
+					oneRow.add(model.getFrom2());
+					oneRow.add(model.getFrom3());
+					oneRow.add(model.getFrom4());
+					oneRow.add(model.getTo1());
+					oneRow.add(model.getTo2());
+					oneRow.add(model.getTo3());
+					oneRow.add(model.getTo4());
+
+					oneRow.add(model.getAmValue());
+					oneRow.add(model.getAmFrom());
+					oneRow.add(model.getAmQty());
+					oneRow.add(model.getFettlingRate());
+					oneRow.add(model.getPackMode());
+					oneRow.add(model.getNoCavities());
+					oneRow.add(model.getMouldCode());
+					oneRow.add(model.getMouldName());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.close();
+				sessionFactory1.close();
+
 			}
 		});
-		button.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/save.png")));
-		button.setFont(new Font("Tahoma", Font.BOLD, 14));
-		button.setBounds(10, 0, 102, 29);
-		contentPane.add(button);
-
-		button_1 = new JButton("Update");
 		button_1.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/view all.png")));
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		button_1.setBounds(112, 0, 116, 29);
 		contentPane.add(button_1);
 
 		button_2 = new JButton("Delete");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				ComponentModel componentModel = new ComponentModel();
+				componentModel.setPartCode(comPartCode.getText());
+				session.delete(componentModel);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<ComponentModel> products = session1.createQuery("from ComponentModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("rawcode");
+				tableHeaders.add("rawname");
+				tableHeaders.add("component name");
+				tableHeaders.add("component part no");
+				tableHeaders.add("partcode");
+				tableHeaders.add("hsn/sac code");
+				tableHeaders.add("norm 1");
+				tableHeaders.add("norm 2");
+				tableHeaders.add("norm 3");
+				tableHeaders.add("norm4");
+				tableHeaders.add("from date1");
+				tableHeaders.add("from date 2");
+				tableHeaders.add("from date 3");
+				tableHeaders.add("from date 4");
+				tableHeaders.add("to date 1");
+				tableHeaders.add("to datte 2");
+				tableHeaders.add("to date 3");
+				tableHeaders.add("to datte 4");
+				tableHeaders.add("amortisation value");
+				tableHeaders.add("amortisation from date");
+				tableHeaders.add("amortisation qty");
+				tableHeaders.add("fettling rate");
+				tableHeaders.add("packing mode");
+				tableHeaders.add("no of cavities");
+				tableHeaders.add("mould code");
+				tableHeaders.add("mould name");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					ComponentModel model = (ComponentModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getcCode());
+					oneRow.add(model.getcName());
+					oneRow.add(model.getRawCode());
+					oneRow.add(model.getRawName());
+					oneRow.add(model.getComponenetName());
+					oneRow.add(model.getCompPartno());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getHsnCode());
+					oneRow.add(model.getNorm1());
+					oneRow.add(model.getNorm2());
+					oneRow.add(model.getNorm3());
+					oneRow.add(model.getNorm4());
+					oneRow.add(model.getFrom1());
+					oneRow.add(model.getFrom2());
+					oneRow.add(model.getFrom3());
+					oneRow.add(model.getFrom4());
+					oneRow.add(model.getTo1());
+					oneRow.add(model.getTo2());
+					oneRow.add(model.getTo3());
+					oneRow.add(model.getTo4());
+
+					oneRow.add(model.getAmValue());
+					oneRow.add(model.getAmFrom());
+					oneRow.add(model.getAmQty());
+					oneRow.add(model.getFettlingRate());
+					oneRow.add(model.getPackMode());
+					oneRow.add(model.getNoCavities());
+					oneRow.add(model.getMouldCode());
+					oneRow.add(model.getMouldName());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.getTransaction().commit();
+				session1.close();
+				sessionFactory1.close();
+			}
+		});
 		button_2.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/delete.png")));
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		button_2.setBounds(228, 0, 102, 29);
 		contentPane.add(button_2);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(852, 637, 89, 47);
+
+		JButton btnNewButton = new JButton("View All");
+		btnNewButton.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/view all.png")));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<ComponentModel> products = session.createQuery("from ComponentModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("rawcode");
+				tableHeaders.add("rawname");
+				tableHeaders.add("component name");
+				tableHeaders.add("component part no");
+				tableHeaders.add("partcode");
+				tableHeaders.add("hsn/sac code");
+				tableHeaders.add("norm 1");
+				tableHeaders.add("norm 2");
+				tableHeaders.add("norm 3");
+				tableHeaders.add("norm4");
+				tableHeaders.add("from date1");
+				tableHeaders.add("from date 2");
+				tableHeaders.add("from date 3");
+				tableHeaders.add("from date 4");
+				tableHeaders.add("to date 1");
+				tableHeaders.add("to datte 2");
+				tableHeaders.add("to date 3");
+				tableHeaders.add("to datte 4");
+				tableHeaders.add("amortisation value");
+				tableHeaders.add("amortisation from date");
+				tableHeaders.add("amortisation to date");
+				tableHeaders.add("fettling rate");
+				tableHeaders.add("packing mode");
+				tableHeaders.add("no of cavities");
+				tableHeaders.add("mould code");
+				tableHeaders.add("mould name");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					ComponentModel model = (ComponentModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getcCode());
+					oneRow.add(model.getcName());
+					oneRow.add(model.getRawCode());
+					oneRow.add(model.getRawName());
+					oneRow.add(model.getComponenetName());
+					oneRow.add(model.getCompPartno());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getHsnCode());
+					oneRow.add(model.getNorm1());
+					oneRow.add(model.getNorm2());
+					oneRow.add(model.getNorm3());
+					oneRow.add(model.getNorm4());
+					oneRow.add(model.getFrom1());
+					oneRow.add(model.getFrom2());
+					oneRow.add(model.getFrom3());
+					oneRow.add(model.getFrom4());
+					oneRow.add(model.getTo1());
+					oneRow.add(model.getTo2());
+					oneRow.add(model.getTo3());
+					oneRow.add(model.getTo4());
+
+					oneRow.add(model.getAmValue());
+					oneRow.add(model.getAmFrom());
+					oneRow.add(model.getAmQty());
+					oneRow.add(model.getFettlingRate());
+					oneRow.add(model.getPackMode());
+					oneRow.add(model.getNoCavities());
+					oneRow.add(model.getMouldCode());
+					oneRow.add(model.getMouldName());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+
+			}
+		});
+		btnNewButton.setBounds(334, 0, 109, 29);
 		contentPane.add(btnNewButton);
+
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				int index = table.getSelectedRow();
+
+				cusCombo.setSelectedItem(model.getValueAt(index, 0).toString());
+				cusName.setText(model.getValueAt(index, 1).toString());
+				rawCombo.setSelectedItem(model.getValueAt(index, 2).toString());
+				rawName.setText(model.getValueAt(index, 3).toString());
+				comName.setText(model.getValueAt(index, 4).toString());
+				comPartno.setText(model.getValueAt(index, 5).toString());
+
+				comPartCode.setText(model.getValueAt(index, 6).toString());
+				hsnCode.setText(model.getValueAt(index, 7).toString());
+
+				norm1.setText(model.getValueAt(index, 8).toString());
+				norm2.setText(model.getValueAt(index, 9).toString());
+				norm3.setText(model.getValueAt(index, 10).toString());
+				norm4.setText(model.getValueAt(index, 11).toString());
+
+				String str = model.getValueAt(index, 12).toString();
+				// String s=from1.getText();
+				String from = str.replace('-', '/');
+				// model.getValueAt(index, 12)(new Date(newString));
+				from1.setText(from);
+
+				String str1 = model.getValueAt(index, 13).toString();
+				// String s=from1.getText();
+				String from12 = str1.replace('-', '/');
+				from2.setText(from12);
+
+				String str2 = model.getValueAt(index, 14).toString();
+				// String s=from1.getText();
+				String from13 = str2.replace('-', '/');
+				from3.setText(from13);
+
+				String str3 = model.getValueAt(index, 15).toString();
+				// String s=from1.getText();
+				String from14 = str3.replace('-', '/');
+				from4.setText(from14);
+
+				String str4 = model.getValueAt(index, 16).toString();
+				// String s=from1.getText();
+				String from15 = str4.replace('-', '/');
+				to1.setText(from15);
+
+				String str5 = model.getValueAt(index, 17).toString();
+				// String s=from1.getText();
+				String from16 = str5.replace('-', '/');
+				to2.setText(from16);
+
+				String str6 = model.getValueAt(index, 18).toString();
+				// String s=from1.getText();
+				String from17 = str6.replace('-', '/');
+				to3.setText(from17);
+
+				String str7 = model.getValueAt(index, 19).toString();
+				// String s=from1.getText();
+				String from18 = str7.replace('-', '/');
+				to4.setText(from18);
+
+				aValue.setText(model.getValueAt(index, 20).toString());
+
+				String str8 = model.getValueAt(index, 21).toString();
+				// String s=from1.getText();
+				String from8 = str8.replace('-', '/');
+				amFrom.setText(from8);
+				amQty.setText(model.getValueAt(index, 22).toString());
+				fRate.setText(model.getValueAt(index, 23).toString());
+				packMode.setSelectedItem(model.getValueAt(index, 24).toString());
+
+				noCav.setText(model.getValueAt(index, 25).toString());
+				mouldCombo.setSelectedItem(model.getValueAt(index, 26).toString());
+				mouldName.setText(model.getValueAt(index, 27).toString());
+
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/viw.png")));
+		btnNewButton_1.setBounds(863, 661, 89, 40);
+		contentPane.add(btnNewButton_1);
 	}
 }

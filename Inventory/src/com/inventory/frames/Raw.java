@@ -48,7 +48,7 @@ public class Raw extends JFrame {
 				try {
 					Raw frame = new Raw();
 					frame.setVisible(true);
-					frame.get();
+					//frame.get();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -64,40 +64,34 @@ public class Raw extends JFrame {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				/*	BoxModel coModel = new DefaultComboBoxModel();
-				System.out.println("mdel passed");
-
-				
-				 * // DefaultComboBoxModel model=(DefaultComboBoxModel) //
-				 * comboBox.getModel(); // coModel.removeAllElements(); Vector
-				 * tableData = new Vector();
-				 * 
-				 * 
-				 * for (Object o : products) { RawModel model = (RawModel) o;
-				 * Vector<Object> oneRow = new Vector<Object>();
-				 * oneRow.add(model.getCode());
-				 * 
-				 * 
-				 * tableData.add(oneRow); }
 			
-				coModel.removeAllElements();
-				for (RawModel customerModel1 : products) {
-					System.out.println("helllo");
-					// pri.setModel(coModel.addElement(customerModel1.getCode()));
-					System.out.println(customerModel1.getCode());
-					//customerModel1.getCode();
-					coModel.addElement(customerModel1.get1());
-					System.out.println();
-					// pri.setModel(coModel);
-					pri.setModel(coModel);
-					pri.setSelectedIndex(0);
-					System.out.println("over");
-				}
+				SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+				Session session=sessionFactory.openSession();
 				
+				
+				List<RawModel> raw = session.createQuery("from RawModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("code");
+				tableHeaders.add("Raw Material Description");
+				
+			
+				for (Object o : raw) {
+					RawModel model = (RawModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getCode());
+					oneRow.add(model.getDes());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+
+			
 				session.getTransaction().commit();
-				session.flush();
 				session.close();
-				sessionFactory.close();*/
+				sessionFactory.close();
+			
 
 			}
 		});
@@ -127,6 +121,17 @@ public class Raw extends JFrame {
 
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
+			
+			
+			
+			
+			
+			
+			//*******save***********
+			
+			
+			
+			
 			public void actionPerformed(ActionEvent arg0) {
 
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -159,8 +164,7 @@ public class Raw extends JFrame {
 				session.getTransaction().commit();
 				session.close();
 				sessionFactory.close();
-				Raw f = new Raw();
-				f.get();
+			
 
 			}
 		});
@@ -168,7 +172,11 @@ public class Raw extends JFrame {
 		btnSave.setIcon(new ImageIcon(Raw.class.getResource("/inventory/save.png")));
 		btnSave.setBounds(0, 0, 102, 29);
 		contentPane.add(btnSave);
-
+	
+		
+		
+		
+		// ***************update*********************
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -203,8 +211,7 @@ public class Raw extends JFrame {
 				session.getTransaction().commit();
 				session.close();
 				sessionFactory.close();
-				Raw f = new Raw();
-				f.get();
+				
 
 			}
 		});
@@ -215,11 +222,21 @@ public class Raw extends JFrame {
 
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
+		
+			
+			
+			
+			
+			
+			
+			//**************Delete***************************
+			
+			
 			public void actionPerformed(ActionEvent e) {
 
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
-				
+
 				session.beginTransaction();
 
 				RawModel raw = new RawModel();
@@ -284,33 +301,5 @@ public class Raw extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 
-	public void get() {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		@SuppressWarnings("unchecked")
-		List<RawModel> raw = session.createQuery("from RawModel").list();
 
-		Vector<String> tableHeaders = new Vector<String>();
-		Vector tableData = new Vector();
-		tableHeaders.add("code");
-		tableHeaders.add("Raw Material Description");
-		// tableHeaders.add("address");
-
-		// tableHeaders.add("name");
-		for (Object o : raw) {
-			RawModel model = (RawModel) o;
-			Vector<Object> oneRow = new Vector<Object>();
-			oneRow.add(model.getCode());
-			oneRow.add(model.getDes());
-
-			tableData.add(oneRow);
-		}
-		table.setModel(new DefaultTableModel(tableData, tableHeaders));
-
-		session.getTransaction().commit();
-	//	session.flush();
-		session.close();
-		sessionFactory.close();
 	}
-}
