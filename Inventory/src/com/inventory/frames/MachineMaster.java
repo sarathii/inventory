@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
@@ -19,6 +21,7 @@ import com.inventory.model.RawModel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -28,6 +31,8 @@ import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MachineMaster extends JFrame {
 
@@ -81,7 +86,7 @@ public class MachineMaster extends JFrame {
 					tableData.add(oneRow);
 				}
 				table.setModel(new DefaultTableModel(tableData, tableHeaders));
-			
+
 				session.close();
 				sessionFactory.close();
 
@@ -93,8 +98,22 @@ public class MachineMaster extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+	JScrollPane scrollPane = new JScrollPane();
 
-		JScrollPane scrollPane = new JScrollPane();
+	/*/*		scrollPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				DefaultTableModel model1 = (DefaultTableModel) table.getModel();
+				int index = table.getSelectedRow();
+				mCode.setText(model1.getValueAt(index, 0).toString());
+				mDes.setText(model1.getValueAt(index, 1).toString());
+
+				
+				
+			}
+		});*/
+
 		scrollPane.setBounds(26, 75, 586, 270);
 		contentPane.add(scrollPane);
 
@@ -165,53 +184,21 @@ public class MachineMaster extends JFrame {
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 
-				
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				int index = table.getSelectedRow();
-				mCode.setText(model.getValueAt(index, 0).toString());
-				mDes.setText(model.getValueAt(index, 1).toString());
-
 				MachineModel machineModel = new MachineModel();
-				
-				
+
 				machineModel.setMcode(mCode.getText());
 				machineModel.setMDes(mDes.getText());
-				int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update   " + mCode.getText() + "  ?",
-						null, JOptionPane.YES_NO_OPTION);
-				if (result == JOptionPane.YES_OPTION) {
-				
-				
+
 				session.update(machineModel);
-				
+
 				session.getTransaction().commit();
 
-				
-				List<MachineModel> Model = session.createQuery("from MachineModel").list();
-
-				Vector<String> tableHeaders = new Vector<String>();
-				Vector tableData = new Vector();
-				tableHeaders.add("Machinecode");
-				tableHeaders.add("Machine Description");
-				// tableHeaders.add("address");
-
-				// tableHeaders.add("name");
-				for (Object o : Model) {
-					MachineModel machine = (MachineModel) o;
-					Vector<Object> oneRow = new Vector<Object>();
-					oneRow.add(machine.getMcode());
-					oneRow.add(machine.getMDes());
-
-					tableData.add(oneRow);
-				}
-				table.setModel(new DefaultTableModel(tableData, tableHeaders));
-
-				JOptionPane.showMessageDialog(null, "updated");
 				mCode.setText("");
 				mDes.setText("");
 				session.close();
 				sessionFactory.close();
-				}
 			}
+
 		});
 		button_1.setIcon(new ImageIcon(MachineMaster.class.getResource("/inventory/update.png")));
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -231,23 +218,18 @@ public class MachineMaster extends JFrame {
 				mCode.setText(model.getValueAt(index, 0).toString());
 				mDes.setText(model.getValueAt(index, 1).toString());
 
-				
-
 				MachineModel machine = new MachineModel();
 				machine.setMcode(mCode.getText());
 
 				int result = JOptionPane.showConfirmDialog(null, "Are you sure you delete   " + mCode.getText() + "  ?",
 						null, JOptionPane.YES_NO_OPTION);
-				if (result == JOptionPane.YES_OPTION)
-				{
+				if (result == JOptionPane.YES_OPTION) {
 					session.delete(machine);
 					mCode.setText("");
 					mDes.setText("");
 
 					session.getTransaction().commit();
-					
-					
-					
+
 					List<MachineModel> Model = session.createQuery("from MachineModel").list();
 
 					Vector<String> tableHeaders = new Vector<String>();
@@ -267,7 +249,7 @@ public class MachineMaster extends JFrame {
 					}
 					table.setModel(new DefaultTableModel(tableData, tableHeaders));
 
-					//JOptionPane.showMessageDialog(null, "updated");
+					// JOptionPane.showMessageDialog(null, "updated");
 					session.getTransaction().commit();
 					mCode.setText("");
 					mDes.setText("");
@@ -287,18 +269,59 @@ public class MachineMaster extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-
 				
 				
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				int index = table.getSelectedRow();
-				mCode.setText(model.getValueAt(index, 0).toString());
-				mDes.setText(model.getValueAt(index, 1).toString());
+				
+				
+				SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+				Session session=sessionFactory.openSession();
+			//	model1.removeTableModelListener(table);
+				
+				List<MachineModel> Model = session.createQuery("from MachineModel").list();
 
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("Machinecode");
+				tableHeaders.add("Machine Description");
+				// tableHeaders.add("address");
+
+				// tableHeaders.add("name");
+				for (Object o : Model) {
+					MachineModel machin = (MachineModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(machin.getMcode());
+					oneRow.add(machin.getMDes());
+
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+
+				// JOptionPane.showMessageDialog(null, "updated");
+				session.close();
+				sessionFactory.close();
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(MachineMaster.class.getResource("/inventory/viw.png")));
 		btnNewButton.setBounds(614, 193, 89, 40);
 		contentPane.add(btnNewButton);
+
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		ListSelectionModel selectionModel = table.getSelectionModel();
+
+		selectionModel.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+
+				DefaultTableModel model1 = (DefaultTableModel) table.getModel();
+				int index = table.getSelectedRow();
+				
+				mCode.setText(model1.getValueAt(index, 0).toString());
+				mDes.setText(model1.getValueAt(index, 1).toString());
+				
+			}
+		});
+
 	}
 }

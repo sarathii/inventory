@@ -21,6 +21,7 @@
 		<mapping class="com.inventory.model.CustomerModel" />
 		<mapping class="com.inventory.model.MouldModel" />
 		<mapping class="com.inventory.model.ComponentModel" />
-		<mapping class="com.inventory.model.MachineModel"/>
+		<mapping class="com.inventory.model.MachineModel" />
+		<mapping class="com.inventory.model.PurchaseOrderModel"/>
 	</session-factory>
 </hibernate-configuration>

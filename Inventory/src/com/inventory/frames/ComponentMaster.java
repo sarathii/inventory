@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -321,42 +323,36 @@ public class ComponentMaster extends JFrame {
 		contentPane.add(to1);
 
 		to2 = new JTextField();
-		to2.setText("0");
 		to2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to2.setColumns(10);
 		to2.setBounds(351, 353, 115, 28);
 		contentPane.add(to2);
 
 		from2 = new JTextField();
-		from2.setText("0");
 		from2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from2.setColumns(10);
 		from2.setBounds(194, 358, 115, 28);
 		contentPane.add(from2);
 
 		norm2 = new JTextField();
-		norm2.setText("0");
 		norm2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm2.setColumns(10);
 		norm2.setBounds(48, 353, 115, 28);
 		contentPane.add(norm2);
 
 		norm3 = new JTextField();
-		norm3.setText("0");
 		norm3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm3.setColumns(10);
 		norm3.setBounds(48, 397, 115, 28);
 		contentPane.add(norm3);
 
 		from3 = new JTextField();
-		from3.setText("0");
 		from3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from3.setColumns(10);
 		from3.setBounds(194, 397, 115, 28);
 		contentPane.add(from3);
 
 		to3 = new JTextField();
-		to3.setText("0");
 		to3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to3.setColumns(10);
 		to3.setBounds(351, 396, 115, 28);
@@ -396,21 +392,18 @@ public class ComponentMaster extends JFrame {
 		contentPane.add(amQty);
 
 		norm4 = new JTextField();
-		norm4.setText("0");
 		norm4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm4.setColumns(10);
 		norm4.setBounds(48, 436, 115, 28);
 		contentPane.add(norm4);
 
 		from4 = new JTextField();
-		from4.setText("0");
 		from4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from4.setColumns(10);
 		from4.setBounds(194, 435, 115, 28);
 		contentPane.add(from4);
 
 		to4 = new JTextField();
-		to4.setText("0");
 		to4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to4.setColumns(10);
 		to4.setBounds(351, 436, 115, 28);
@@ -513,20 +506,50 @@ public class ComponentMaster extends JFrame {
 				componentModel.setHsnCode(hsnCode.getText());
 				componentModel.setMouldCode(hsnCode.getText());
 				componentModel.setFrom1(new Date(from1.getText()));
+
+				if (!from2.getText().isEmpty()) {
+					componentModel.setFrom2(new Date(from2.getText()));
+				}
 				
-				//if(!"".equals(new Date(from2.getText()))){
-				componentModel.setFrom2(new Date(from2.getText()));
-				//}
-				componentModel.setFrom3(new Date(from3.getText()));
-				componentModel.setFrom4(new Date(from4.getText()));
+				if (!from3.getText().isEmpty()) {
+					componentModel.setFrom3(new Date(from3.getText()));
+				}
+				
+				if (!from4.getText().isEmpty()) {
+					componentModel.setFrom4(new Date(from4.getText()));
+				}
+					
+				if (!to1.getText().isEmpty()) {
+					componentModel.setTo1(new Date(to1.getText()));
+				}
+				
+				if (!to2.getText().isEmpty()) {
+					componentModel.setTo2(new Date(to2.getText()));
+				}
+			
+				if (!to3.getText().isEmpty()) {
+					componentModel.setTo3(new Date(to3.getText()));
+				}
+				
+				if (!to4.getText().isEmpty()) {
+					componentModel.setTo4(new Date(to4.getText()));
+				}
+				
 				componentModel.setNorm1(Long.parseLong(norm1.getText()));
-				componentModel.setNorm2(Long.parseLong(norm2.getText()));
-				componentModel.setNorm3(Long.parseLong(norm3.getText()));
-				componentModel.setNorm4(Long.parseLong(norm4.getText()));
-				componentModel.setTo1(new Date(to1.getText()));
-				componentModel.setTo2(new Date(to2.getText()));
-				componentModel.setTo3(new Date(to3.getText()));
-				componentModel.setTo4(new Date(to4.getText()));
+
+				if (!norm2.getText().isEmpty()) {
+					componentModel.setNorm2(Long.parseLong(norm2.getText()));
+
+				}
+				if (!norm3.getText().isEmpty()) {
+					componentModel.setNorm3(Long.parseLong(norm3.getText()));
+				}
+				if (!norm4.getText().isEmpty()) {
+					componentModel.setNorm4(Long.parseLong(norm4.getText()));
+
+				}
+				//componentModel.setTo1(new Date(to1.getText()));
+
 				componentModel.setAmValue(Long.parseLong(aValue.getText()));
 				componentModel.setAmFrom(new Date(amFrom.getText()));
 				componentModel.setAmQty(Long.parseLong(amQty.getText()));
@@ -538,6 +561,7 @@ public class ComponentMaster extends JFrame {
 
 				session.save(componentModel);
 				session.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "saved");
 				session.close();
 				sessionFactory.close();
 
@@ -954,7 +978,7 @@ public class ComponentMaster extends JFrame {
 
 		JButton btnNewButton_1 = new JButton("");
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) throws java.lang.NullPointerException {
 
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				int index = table.getSelectedRow();
@@ -1028,7 +1052,9 @@ public class ComponentMaster extends JFrame {
 				noCav.setText(model.getValueAt(index, 25).toString());
 				mouldCombo.setSelectedItem(model.getValueAt(index, 26).toString());
 				mouldName.setText(model.getValueAt(index, 27).toString());
-
+			//	session.getTransaction().commit();
+				//session.close();
+				//sessionFactory.close();
 			}
 		});
 		btnNewButton_1.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/viw.png")));
