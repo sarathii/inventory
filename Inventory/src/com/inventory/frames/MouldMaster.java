@@ -147,7 +147,7 @@ public class MouldMaster extends JFrame {
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				List<CustomerModel> products = session.createQuery(" from CustomerModel ").list();
-				System.out.println(customerModel.get());
+				//System.out.println(customerModel.get());
 				DefaultComboBoxModel coModel = (DefaultComboBoxModel) comboBox.getModel();
 
 				// DefaultComboBoxModel model=(DefaultComboBoxModel)

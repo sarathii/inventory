@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.inventory.model.ComponentModel;
 import com.inventory.model.CustomerModel;
+import com.inventory.model.PurchaseOrderModel;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -25,24 +27,32 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.List;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class PurchaseOrderMaster extends JFrame {
 	private JComboBox cusCombo;
 	private JComboBox partCombo;
 	private JPanel contentPane;
 	private JTextField cusName;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField po;
+	private JTextField date;
+	private JTextField quantity;
+	private JTextField rate;
+	private JTextField st;
+	private JTextField ed;
+	private JTextField mrp;
 	private JTextField hsn;
 	private JTextField igst;
 	private JTextField cgst;
 	private JTextField sgst;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -97,7 +107,7 @@ public class PurchaseOrderMaster extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 869, 476);
+		setBounds(100, 100, 974, 594);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -131,31 +141,19 @@ public class PurchaseOrderMaster extends JFrame {
 		partCombo = new JComboBox();
 		partCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				
-				
-				
+
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				String part = partCombo.getSelectedItem().toString();
 				ComponentModel componentModel = (ComponentModel) session.get(ComponentModel.class, part);
 
-			hsn.setText(componentModel.getHsnCode());
+				hsn.setText(componentModel.getHsnCode());
 
 				session.getTransaction().commit();
 				session.close();
 				sessionFactory.close();
 
-				
-				
-				
-				
-				
-				
-				
-				
 			}
 		});
 		partCombo.setBounds(78, 135, 111, 20);
@@ -210,40 +208,40 @@ public class PurchaseOrderMaster extends JFrame {
 		lblNewLabel_9.setBounds(22, 60, 60, 17);
 		contentPane.add(lblNewLabel_9);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(199, 135, 86, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		po = new JTextField();
+		po.setBounds(199, 135, 86, 20);
+		contentPane.add(po);
+		po.setColumns(10);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(293, 135, 86, 20);
-		contentPane.add(textField_2);
+		date = new JTextField();
+		date.setColumns(10);
+		date.setBounds(293, 135, 86, 20);
+		contentPane.add(date);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(389, 135, 86, 20);
-		contentPane.add(textField_3);
+		quantity = new JTextField();
+		quantity.setColumns(10);
+		quantity.setBounds(389, 135, 86, 20);
+		contentPane.add(quantity);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(485, 135, 86, 20);
-		contentPane.add(textField_4);
+		rate = new JTextField();
+		rate.setColumns(10);
+		rate.setBounds(485, 135, 86, 20);
+		contentPane.add(rate);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(581, 135, 86, 20);
-		contentPane.add(textField_5);
+		st = new JTextField();
+		st.setColumns(10);
+		st.setBounds(581, 135, 86, 20);
+		contentPane.add(st);
 
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(677, 135, 86, 20);
-		contentPane.add(textField_6);
+		ed = new JTextField();
+		ed.setColumns(10);
+		ed.setBounds(677, 135, 86, 20);
+		contentPane.add(ed);
 
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(773, 135, 70, 20);
-		contentPane.add(textField_7);
+		mrp = new JTextField();
+		mrp.setColumns(10);
+		mrp.setBounds(773, 135, 70, 20);
+		contentPane.add(mrp);
 
 		JLabel lblHsnCode = new JLabel("HSN Code");
 		lblHsnCode.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -271,75 +269,58 @@ public class PurchaseOrderMaster extends JFrame {
 		contentPane.add(hsn);
 
 		igst = new JTextField();
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		igst.getDocument().addDocumentListener(new DocumentListener() {
-		   
 
 			@Override
 			public void insertUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
-				
-				
-				
-				if(Float.parseFloat(igst.getText())>0){
-					float val=(Float.parseFloat(igst.getText()));
-					float ha=val/2;
+
+				if (Float.parseFloat(igst.getText()) > 0) {
+					float val = (Float.parseFloat(igst.getText()));
+					float ha = val / 2;
 					sgst.setText(String.valueOf(ha));
 					cgst.setText(String.valueOf(ha));
-					}
-					else
-					{
-						igst.setText(String.valueOf(0));
-						cgst.setText(String.valueOf(0));
-						sgst.setText(String.valueOf(0));
-						
-					}
+				} else {
+					igst.setText(String.valueOf(0));
+					cgst.setText(String.valueOf(0));
+					sgst.setText(String.valueOf(0));
+
+				}
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
-				if(Float.parseFloat(igst.getText())>0){
-				float val=(Float.parseFloat(igst.getText()));
-				float ha=val/2;
-				sgst.setText(String.valueOf(ha));
-				cgst.setText(String.valueOf(ha));
-				}
-				else
-				{
+				if (Float.parseFloat(igst.getText()) > 0) {
+					float val = (Float.parseFloat(igst.getText()));
+					float ha = val / 2;
+					sgst.setText(String.valueOf(ha));
+					cgst.setText(String.valueOf(ha));
+				} else {
 					igst.setText(String.valueOf(0));
 					cgst.setText(String.valueOf(0));
 					sgst.setText(String.valueOf(0));
-					
+
 				}
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				if(Float.parseFloat(igst.getText())>0){
-					float val=(Float.parseFloat(igst.getText()));
-					float ha=val/2;
+				if (Float.parseFloat(igst.getText()) > 0) {
+					float val = (Float.parseFloat(igst.getText()));
+					float ha = val / 2;
 					sgst.setText(String.valueOf(ha));
 					cgst.setText(String.valueOf(ha));
-					}
-					else
-					{
-						igst.setText(String.valueOf(0));
-						cgst.setText(String.valueOf(0));
-						sgst.setText(String.valueOf(0));
-						
-					}
+				} else {
+					igst.setText(String.valueOf(0));
+					cgst.setText(String.valueOf(0));
+					sgst.setText(String.valueOf(0));
+
+				}
 			}
-	
+
 		});
 		igst.setColumns(10);
 		igst.setBounds(311, 254, 86, 20);
@@ -354,5 +335,471 @@ public class PurchaseOrderMaster extends JFrame {
 		sgst.setColumns(10);
 		sgst.setBounds(519, 252, 86, 20);
 		contentPane.add(sgst);
+		
+		JButton button = new JButton("Save");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+				Session session=sessionFactory.openSession();
+				session.beginTransaction();
+				
+				
+				
+				PurchaseOrderModel pom=new PurchaseOrderModel();
+				pom.setCusCode(cusCombo.getSelectedItem().toString());
+				pom.setCusName(cusName.getText());
+				pom.setPartCode(partCombo.getSelectedItem().toString());
+				pom.setHsn(hsn.getText());
+				pom.setPoNo(Long.parseLong(po.getText()));
+				pom.setDate(new Date(date.getText()));
+				pom.setQuantity(Long.parseLong(quantity.getText()));
+				pom.setSgst(Float.parseFloat(sgst.getText()));
+				pom.setRate(Long.parseLong(rate.getText()));
+				pom.setSt(Long.parseLong(st.getText()));
+				pom.setEd(Long.parseLong(ed.getText()));
+				pom.setMrp(Long.parseLong(mrp.getText()));
+				pom.setIgst(Float.parseFloat(igst.getText()));
+				pom.setCgst(Float.parseFloat(cgst.getText()));
+				session.save(pom);
+				session.getTransaction().commit();
+				
+				
+				
+				
+				
+
+				@SuppressWarnings("unchecked")
+				List<PurchaseOrderModel> products = session.createQuery("from PurchaseOrderModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("partcode");
+				tableHeaders.add("po/amend no");
+				tableHeaders.add("Date");
+				tableHeaders.add("quantity");
+				tableHeaders.add("rate");
+				tableHeaders.add("s.t%");
+				tableHeaders.add("e.d%");
+				tableHeaders.add("mrp");
+				tableHeaders.add("hsn code");
+				tableHeaders.add("igst");
+				tableHeaders.add("cgst");
+				tableHeaders.add("sgst");
+				
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					PurchaseOrderModel model = (PurchaseOrderModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getCusCode());
+					oneRow.add(model.getCusName());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getPoNo());
+					oneRow.add(model.getDate());
+					oneRow.add(model.getQuantity());
+					oneRow.add(model.getRate());
+					oneRow.add(model.getSt());
+					oneRow.add(model.getEd());
+					oneRow.add(model.getMrp());
+					oneRow.add(model.getHsn());
+					oneRow.add(model.getIgst());
+					
+					oneRow.add(model.getCgst());
+					oneRow.add(model.getSgst());
+					
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				//ssionFactory.close();
+
+				session.close();
+				sessionFactory.close();
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		button.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/save.png")));
+		button.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button.setBounds(16, 0, 102, 29);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("Update");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+				Session session=sessionFactory.openSession();
+				session.beginTransaction();
+				
+				
+				
+				PurchaseOrderModel pom=new PurchaseOrderModel();
+				pom.setCusCode(cusCombo.getSelectedItem().toString());
+				pom.setCusName(cusName.getText());
+				pom.setPartCode(partCombo.getSelectedItem().toString());
+				pom.setHsn(hsn.getText());
+				pom.setPoNo(Long.parseLong(po.getText()));
+				pom.setDate(new Date(date.getText()));
+				pom.setQuantity(Long.parseLong(quantity.getText()));
+				pom.setSgst(Float.parseFloat(sgst.getText()));
+				pom.setRate(Long.parseLong(rate.getText()));
+				pom.setSt(Long.parseLong(st.getText()));
+				pom.setEd(Long.parseLong(ed.getText()));
+				pom.setMrp(Long.parseLong(mrp.getText()));
+				pom.setIgst(Float.parseFloat(igst.getText()));
+				pom.setCgst(Float.parseFloat(cgst.getText()));
+				session.update(pom);
+				session.getTransaction().commit();
+				
+				
+
+				@SuppressWarnings("unchecked")
+				List<PurchaseOrderModel> products = session.createQuery("from PurchaseOrderModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("partcode");
+				tableHeaders.add("po/amend no");
+				tableHeaders.add("Date");
+				tableHeaders.add("quantity");
+				tableHeaders.add("rate");
+				tableHeaders.add("s.t%");
+				tableHeaders.add("e.d%");
+				tableHeaders.add("mrp");
+				tableHeaders.add("hsn code");
+				tableHeaders.add("igst");
+				tableHeaders.add("cgst");
+				tableHeaders.add("sgst");
+				
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					PurchaseOrderModel model = (PurchaseOrderModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getCusCode());
+					oneRow.add(model.getCusName());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getPoNo());
+					oneRow.add(model.getDate());
+					oneRow.add(model.getQuantity());
+					oneRow.add(model.getRate());
+					oneRow.add(model.getSt());
+					oneRow.add(model.getEd());
+					oneRow.add(model.getMrp());
+					oneRow.add(model.getHsn());
+					oneRow.add(model.getIgst());
+					
+					oneRow.add(model.getCgst());
+					oneRow.add(model.getSgst());
+					
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				//ssionFactory.close();
+
+				
+				
+				
+				session.close();
+				sessionFactory.close();
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		button_1.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/update.png")));
+		button_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button_1.setBounds(118, 0, 116, 29);
+		contentPane.add(button_1);
+		
+		JButton button_2 = new JButton("Delete");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				PurchaseOrderModel pom=new PurchaseOrderModel();
+				pom.setPoNo(Long.parseLong(po.getText()));
+				session.delete(pom);
+				session.getTransaction().commit();
+				cusCombo.setSelectedIndex(0);
+po.setText("");			
+partCombo.setSelectedIndex(0);
+date.setText("");
+quantity.setText("");
+rate.setText("");
+st.setText("");
+ed.setText("");
+mrp.setText("");
+igst.setText("");
+cgst.setText("");
+sgst.setText("");
+				
+				
+
+				@SuppressWarnings("unchecked")
+				List<PurchaseOrderModel> products = session.createQuery("from PurchaseOrderModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("partcode");
+				tableHeaders.add("po/amend no");
+				tableHeaders.add("Date");
+				tableHeaders.add("quantity");
+				tableHeaders.add("rate");
+				tableHeaders.add("s.t%");
+				tableHeaders.add("e.d%");
+				tableHeaders.add("mrp");
+				tableHeaders.add("hsn code");
+				tableHeaders.add("igst");
+				tableHeaders.add("cgst");
+				tableHeaders.add("sgst");
+				
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					PurchaseOrderModel model = (PurchaseOrderModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getCusCode());
+					oneRow.add(model.getCusName());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getPoNo());
+					oneRow.add(model.getDate());
+					oneRow.add(model.getQuantity());
+					oneRow.add(model.getRate());
+					oneRow.add(model.getSt());
+					oneRow.add(model.getEd());
+					oneRow.add(model.getMrp());
+					oneRow.add(model.getHsn());
+					oneRow.add(model.getIgst());
+					
+					oneRow.add(model.getCgst());
+					oneRow.add(model.getSgst());
+					
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session.close();
+				sessionFactory.close();
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		button_2.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/delete.png")));
+		button_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button_2.setBounds(234, 0, 102, 29);
+		contentPane.add(button_2);
+		
+		JButton button_3 = new JButton("View All");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			
+			
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<PurchaseOrderModel> products = session.createQuery("from PurchaseOrderModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("cuscode");
+				tableHeaders.add("cusname");
+				tableHeaders.add("partcode");
+				tableHeaders.add("po/amend no");
+				tableHeaders.add("Date");
+				tableHeaders.add("quantity");
+				tableHeaders.add("rate");
+				tableHeaders.add("s.t%");
+				tableHeaders.add("e.d%");
+				tableHeaders.add("mrp");
+				tableHeaders.add("hsn code");
+				tableHeaders.add("igst");
+				tableHeaders.add("cgst");
+				tableHeaders.add("sgst");
+				
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					PurchaseOrderModel model = (PurchaseOrderModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getCusCode());
+					oneRow.add(model.getCusName());
+					oneRow.add(model.getPartCode());
+					oneRow.add(model.getPoNo());
+					oneRow.add(model.getDate());
+					oneRow.add(model.getQuantity());
+					oneRow.add(model.getRate());
+					oneRow.add(model.getSt());
+					oneRow.add(model.getEd());
+					oneRow.add(model.getMrp());
+					oneRow.add(model.getHsn());
+					oneRow.add(model.getIgst());
+					
+					oneRow.add(model.getCgst());
+					oneRow.add(model.getSgst());
+					
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			}
+		});
+		button_3.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/view all.png")));
+		button_3.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button_3.setBounds(340, 0, 109, 29);
+		contentPane.add(button_3);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(43, 307, 756, 190);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JButton btnNewButton = new JButton("view");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				int index = table.getSelectedRow();
+
+				cusCombo.setSelectedItem(model.getValueAt(index, 0).toString());
+				cusName.setText(model.getValueAt(index, 1).toString());
+				partCombo.setSelectedItem(model.getValueAt(index, 2).toString());
+				po.setText(model.getValueAt(index, 3).toString());
+				
+				String dated=model.getValueAt(table.getSelectedRow(), 4).toString();
+			String ha=dated.replace('-', '/');
+			date.setText(ha);
+				quantity.setText(model.getValueAt(index, 5).toString());
+
+				rate.setText(model.getValueAt(index, 6).toString());
+				st.setText(model.getValueAt(index, 7).toString());
+
+				ed.setText(model.getValueAt(index, 8).toString());
+				mrp.setText(model.getValueAt(index, 9).toString());
+				hsn.setText(model.getValueAt(index, 10).toString());
+				igst.setText(model.getValueAt(index, 11).toString());
+
+				
+
+				cgst.setText(model.getValueAt(index, 12).toString());
+
+				sgst.setText(String.valueOf((model.getValueAt(table.getSelectedRow(),13))));
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/viw.png")));
+		btnNewButton.setBounds(797, 390, 70, 67);
+		contentPane.add(btnNewButton);
 	}
 }

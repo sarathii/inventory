@@ -1,4 +1,4 @@
-package com.inventory.main;
+/*package com.inventory.main;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +17,7 @@ void insert()
 	session.beginTransaction();
 CustomerModel customerModel=new CustomerModel();
 	customerModel.setName("pri");
-
+/*
 customerModel.setAddress("chennai");
 customerModel.setCity("vh");
 customerModel.setCode("boy");
@@ -52,4 +52,4 @@ public static void main(String[] args) {
 CustomerModel customerModel=new CustomerModel();
 
 }
-}
+}*/

@@ -4,15 +4,27 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 public class PurchaseOrderModel {
 	
-	@Id
+	
+	public float getIgst() {
+		return Igst;
+	}
+	public float getCgst() {
+		return cgst;
+	}
+	public float getSgst() {
+		return sgst;
+	}
 	private String cusCode;
 	private String CusName;
 	private String partCode;
-	
+	@Id
 	private  Long poNo;
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	private Long Quantity;
 	private long rate;
