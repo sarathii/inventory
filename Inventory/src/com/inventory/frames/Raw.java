@@ -60,6 +60,7 @@ public class Raw extends JFrame {
 	 * Create the frame.
 	 */
 	public Raw() {
+		setTitle("Raw Master");
 		addWindowListener(new WindowAdapter() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override

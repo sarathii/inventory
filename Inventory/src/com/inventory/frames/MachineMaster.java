@@ -61,6 +61,7 @@ public class MachineMaster extends JFrame {
 	 * Create the frame.
 	 */
 	public MachineMaster() {
+		setTitle("Machine Master");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {

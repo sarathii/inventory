@@ -43,6 +43,7 @@ public class Home extends JFrame {
 	 * Create the frame.
 	 */
 	public Home() {
+		setTitle("Home");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 635, 395);
 
@@ -52,7 +53,7 @@ public class Home extends JFrame {
 		JMenu mnNewMenu = new JMenu("Masters");
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmCustomermaster = new JMenuItem("CustomerMaster");
+		JMenuItem mntmCustomermaster = new JMenuItem("Customer Master");
 		mntmCustomermaster.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/// SwingUtilities.getWindowAncestor(this).setVisible(false);
@@ -90,7 +91,7 @@ public class Home extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Mould Maaster");
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Mould Master");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -101,7 +102,7 @@ public class Home extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_5);
 		
-				JMenuItem mntmNewMenuItem_4 = new JMenuItem("RawMaster");
+				JMenuItem mntmNewMenuItem_4 = new JMenuItem("Raw Master");
 				mntmNewMenuItem_4.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
@@ -113,6 +114,12 @@ public class Home extends JFrame {
 					}
 				});
 				mnNewMenu.add(mntmNewMenuItem_4);
+				
+				JMenuItem mntmNewMenuItem_6 = new JMenuItem("Machine Master");
+				mnNewMenu.add(mntmNewMenuItem_6);
+				
+				JMenuItem mntmNewMenuItem_7 = new JMenuItem("PurchaseOrder Master");
+				mnNewMenu.add(mntmNewMenuItem_7);
 
 		JMenu mnNewMenu_1 = new JMenu("Transaction");
 		menuBar.add(mnNewMenu_1);

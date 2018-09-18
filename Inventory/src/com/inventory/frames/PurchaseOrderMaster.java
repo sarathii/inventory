@@ -74,6 +74,7 @@ public class PurchaseOrderMaster extends JFrame {
 	 * Create the frame.
 	 */
 	public PurchaseOrderMaster() {
+		setTitle("Purchase Order");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {

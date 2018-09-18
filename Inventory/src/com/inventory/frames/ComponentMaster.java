@@ -105,6 +105,7 @@ public class ComponentMaster extends JFrame {
 	}
 
 	public ComponentMaster() {
+		setTitle("Component Master");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {

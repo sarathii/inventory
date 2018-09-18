@@ -71,6 +71,7 @@ public class VendorForm extends JFrame {
 	 * Create the frame.
 	 */
 	public VendorForm() {
+		setTitle("Vendor Master");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 939, 847);
 		contentPane = new JPanel();
