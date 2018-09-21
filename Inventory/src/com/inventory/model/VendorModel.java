@@ -12,16 +12,16 @@ public class VendorModel {
 
 	private String address;
 	private String city;
-	private int pinCode;
-	private int contact;
+	private long pinCode;
+	private long contact;
 	private String designation;
 
 	private String remarks;
-	private int office;
-	private int fax;
-	private int factory;
-	private int mobile;
-	private int pager;
+	private long office;
+	private long fax;
+	private long factory;
+	private  long mobile;
+	private long pager;
 
 	private String email;
 	private String url;
@@ -60,21 +60,7 @@ public class VendorModel {
 		this.city = city;
 	}
 
-	public int getPinCode() {
-		return pinCode;
-	}
-
-	public void setPinCode(int pinCode) {
-		this.pinCode = pinCode;
-	}
-
-	public int getContact() {
-		return contact;
-	}
-
-	public void setContact(int contact) {
-		this.contact = contact;
-	}
+	
 
 	public String getDesignation() {
 		return designation;
@@ -92,43 +78,61 @@ public class VendorModel {
 		this.remarks = remarks;
 	}
 
-	public int getOffice() {
+	
+
+	public long getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(long pinCode) {
+		this.pinCode = pinCode;
+	}
+
+	public long getContact() {
+		return contact;
+	}
+
+	public void setContact(long contact) {
+		this.contact = contact;
+	}
+
+	public long getOffice() {
 		return office;
 	}
 
-	public void setOffice(int office) {
+	public void setOffice(long office) {
 		this.office = office;
 	}
 
-	public int getFax() {
+	public long getFax() {
 		return fax;
 	}
 
-	public void setFax(int fax) {
+	public void setFax(long fax) {
 		this.fax = fax;
 	}
 
-	public int getFactory() {
+	public long getFactory() {
 		return factory;
 	}
 
-	public void setFactory(int factory) {
+	public void setFactory(long factory) {
 		this.factory = factory;
 	}
 
-	public int getMobile() {
+	public long getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(int mobile) {
+	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
 
-	public int getPager() {
+	public long getPager() {
 		return pager;
 	}
 
-	public void setPager(int pager) {
+	public void setPager(long pager) {
 		this.pager = pager;
 	}
 

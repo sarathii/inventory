@@ -272,7 +272,7 @@ public class VendorForm extends JFrame {
 		vecc = new JTextField();
 		vecc.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		vecc.setColumns(10);
-		vecc.setBounds(434, 486, 213, 28);
+		vecc.setBounds(383, 491, 213, 28);
 		panel.add(vecc);
 
 		JLabel label_13 = new JLabel("Email");
@@ -390,21 +390,21 @@ public class VendorForm extends JFrame {
 				vendorModel.setAddress(vadress.getText());
 				vendorModel.setCity(vcity.getText());
 				vendorModel.setCode(vcode.getText());
-				vendorModel.setContact(Integer.parseInt(vcontacts.getText()));
+				vendorModel.setContact(Long.parseLong(vcontacts.getText()));
 
 				vendorModel.setDesignation(vdes.getText());
 
 				vendorModel.setEcc(vecc.getText());
 				vendorModel.setEmail(vemail.getText());
-				vendorModel.setFactory(Integer.parseInt(vfactory.getText()));
-				vendorModel.setFax(Integer.parseInt(vfax.getText()));
+				vendorModel.setFactory(Long.parseLong(vfactory.getText()));
+				vendorModel.setFax(Long.parseLong(vfax.getText()));
 
-				vendorModel.setMobile(Integer.parseInt(vmobile.getText()));
+				vendorModel.setMobile(Long.parseLong(vmobile.getText()));
 				vendorModel.setName(vname.getText());
-				vendorModel.setOffice(Integer.parseInt(voffice.getText()));
-				vendorModel.setPager(Integer.parseInt(vpager.getText()));
+				vendorModel.setOffice(Long.parseLong(voffice.getText()));
+				vendorModel.setPager(Long.parseLong(vpager.getText()));
 
-				vendorModel.setPinCode(Integer.parseInt(vpincode.getText()));
+				vendorModel.setPinCode(Long.parseLong(vpincode.getText()));
 				// customerModel.setRange(vrange.getText());
 				vendorModel.setRemarks(vremarrks.getText());
 				// customerModel.setStd(std.getText());
@@ -505,21 +505,21 @@ public class VendorForm extends JFrame {
 				vendorModel.setAddress(vadress.getText());
 				vendorModel.setCity(vcity.getText());
 				vendorModel.setCode(vcode.getText());
-				vendorModel.setContact(Integer.parseInt(vcontacts.getText()));
+				vendorModel.setContact(Long.parseLong(vcontacts.getText()));
 
 				vendorModel.setDesignation(vdes.getText());
 
 				vendorModel.setEcc(vecc.getText());
 				vendorModel.setEmail(vemail.getText());
-				vendorModel.setFactory(Integer.parseInt(vfactory.getText()));
-				vendorModel.setFax(Integer.parseInt(vfax.getText()));
+				vendorModel.setFactory(Long.parseLong(vfactory.getText()));
+				vendorModel.setFax(Long.parseLong(vfax.getText()));
 
-				vendorModel.setMobile(Integer.parseInt(vmobile.getText()));
+				vendorModel.setMobile(Long.parseLong(vmobile.getText()));
 				vendorModel.setName(vname.getText());
-				vendorModel.setOffice(Integer.parseInt(voffice.getText()));
-				vendorModel.setPager(Integer.parseInt(vpager.getText()));
+				vendorModel.setOffice(Long.parseLong(voffice.getText()));
+				vendorModel.setPager(Long.parseLong(vpager.getText()));
 
-				vendorModel.setPinCode(Integer.parseInt(vpincode.getText()));
+				vendorModel.setPinCode(Long.parseLong(vpincode.getText()));
 				// customerModel.setRange(vrange.getText());
 				vendorModel.setRemarks(vremarrks.getText());
 				// customerModel.setStd(std.getText());
