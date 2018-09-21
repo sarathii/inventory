@@ -170,6 +170,14 @@ public class ComponentMaster extends JFrame {
 				sessionFactory.close();
 
 			}
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				
+				Home home=new Home();
+				
+				
+				
+			}
 		});
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
