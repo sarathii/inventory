@@ -491,7 +491,7 @@ public class VendorForm extends JFrame {
 		});
 		menuItem_1.setIcon(new ImageIcon(VendorForm.class.getResource("/inventory/save.png")));
 		menuItem_1.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem_1.setBounds(0, 11, 82, 26);
+		menuItem_1.setBounds(3, 12, 82, 26);
 		panel.add(menuItem_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("Update");

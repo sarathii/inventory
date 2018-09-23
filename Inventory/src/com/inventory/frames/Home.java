@@ -11,7 +11,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import com.inventory.model.CustomerModel;
-import com.inventory.transaction.PoRawMaterial;
+import com.inventory.model.Po_CastingModel;
+import com.inventory.transaction.issues.Delivery_Challen;
+import com.inventory.transaction.issues.ExportInvoice;
+import com.inventory.transaction.issues.JoWorkDeliveryChallan_Raw;
+import com.inventory.transaction.issues.Job_Woring_Challan;
+import com.inventory.transaction.issues.Mrs_Castings;
+import com.inventory.transaction.issues.Mrs_RawMaterial;
+import com.inventory.transaction.issues.SalesInvoice;
+import com.inventory.transaction.issues.labourInvoice;
+import com.inventory.transaction.purchaseOrder.PoRawMaterial;
+import com.inventory.transaction.purchaseOrder.Purchase_Order_Castings;
+import com.inventory.transaction.receipts.Grn_Casting;
+import com.inventory.transaction.receipts.Grn_RawMaterialCustomer;
+import com.inventory.transaction.receipts.Grn_RawMaterialReturn;
+import com.inventory.transaction.receipts.ProductionSlip;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -171,6 +185,18 @@ public class Home extends JFrame {
 		mnNewMenu_1.add(mnPurchaseOrder);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Castings");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				Purchase_Order_Castings po=new Purchase_Order_Castings();
+				po.setVisible(true);
+				
+				
+				
+			}
+		});
 		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnPurchaseOrder.add(mntmNewMenuItem_2);
 		
@@ -196,18 +222,57 @@ public class Home extends JFrame {
 		mnNewMenu_1.add(mnReceipts);
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("GRN-Castings(Vendor Customer)");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				Grn_Casting casting=new Grn_Casting();
+				casting.setVisible(true);
+				
+			}
+		});
 		mntmNewMenuItem_10.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnReceipts.add(mntmNewMenuItem_10);
 		
 		JMenuItem mntmNewMenuItem_13 = new JMenuItem("GRN-Raw Materials(purchase and return from sub-contractor)");
+		mntmNewMenuItem_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				Grn_RawMaterialReturn retur=new Grn_RawMaterialReturn();
+				retur.setVisible(true);
+			}
+		});
 		mntmNewMenuItem_13.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnReceipts.add(mntmNewMenuItem_13);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("GRN-raw Materials(customer)");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			
+
+				Grn_RawMaterialCustomer raw=new Grn_RawMaterialCustomer();
+				raw.setVisible(true);
+			
+			
+			}
+		});
 		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnReceipts.add(mntmNewMenuItem_3);
 		
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Production Slip");
+		mntmNewMenuItem_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ProductionSlip slip=new ProductionSlip();
+				slip.setVisible(true);
+				
+				
+				
+			}
+		});
 		mntmNewMenuItem_11.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnReceipts.add(mntmNewMenuItem_11);
 		
@@ -216,27 +281,97 @@ public class Home extends JFrame {
 		mnNewMenu_1.add(mnNewMenu_3);
 		
 		JMenuItem mntmMrsrawmaterial = new JMenuItem("MRS-RawMaterial");
+		mntmMrsrawmaterial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				Mrs_RawMaterial raw=new Mrs_RawMaterial();
+				raw.setVisible(true);
+				
+			}
+		});
 		mnNewMenu_3.add(mntmMrsrawmaterial);
 		
 		JMenuItem mntmMrscastings = new JMenuItem("MRS-Castings");
+		mntmMrscastings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Mrs_Castings cast=new Mrs_Castings();
+				cast.setVisible(true);
+				
+				
+			}
+		});
 		mnNewMenu_3.add(mntmMrscastings);
 		
 		JMenuItem menuItem = new JMenuItem("job Work Delivery Chalan(Castings)");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			Job_Woring_Challan challan=new Job_Woring_Challan();
+			challan.setVisible(true);
+				
+				
+			}
+		});
 		mnNewMenu_3.add(menuItem);
 		
 		JMenuItem mntmJobWorkDelivery = new JMenuItem("job Work Delivery Chalan(Raw Materials)");
+		mntmJobWorkDelivery.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				JoWorkDeliveryChallan_Raw raw=new JoWorkDeliveryChallan_Raw();
+				raw.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmJobWorkDelivery);
 		
 		JMenuItem mntmLabourInvoiceCum = new JMenuItem("labour Invoice cum delivery challan(Castings)");
+		mntmLabourInvoiceCum.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				labourInvoice in=new labourInvoice();
+				in.setVisible(true);
+				
+				
+				
+			}
+		});
 		mnNewMenu_3.add(mntmLabourInvoiceCum);
 		
 		JMenuItem mntmDeliveryChallanrawMaterialscustomers = new JMenuItem("Delivery challan(Raw Materials)-Customers");
+		mntmDeliveryChallanrawMaterialscustomers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				Delivery_Challen challan=new Delivery_Challen();
+				challan.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmDeliveryChallanrawMaterialscustomers);
 		
 		JMenuItem mntmSalesInvoiceCum = new JMenuItem("Sales Invoice cum Delivery challan");
+		mntmSalesInvoiceCum.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				SalesInvoice sales=new SalesInvoice();
+				sales.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmSalesInvoiceCum);
 		
 		JMenuItem mntmExortInvoice = new JMenuItem("Export Invoice");
+		mntmExortInvoice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				ExportInvoice invoice=new ExportInvoice();
+				invoice.setVisible(true);
+				
+			}
+		});
 		mnNewMenu_3.add(mntmExortInvoice);
 
 		JMenu mnNewMenu_2 = new JMenu("Reports");
@@ -321,4 +456,7 @@ public class Home extends JFrame {
 		
 		
 	}
+
+	
+	
 }
