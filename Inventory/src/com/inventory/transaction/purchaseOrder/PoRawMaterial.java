@@ -36,6 +36,30 @@ public class PoRawMaterial extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -52,7 +76,57 @@ public class PoRawMaterial extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
+	String code,des;
+	int quantity,unit,urate;
+	double amount,igst,cgst,sgst;
+	public PoRawMaterial(String code,String des,int quantity,double amount,int unit,int urate,double igst,double cgst,double sgst){
+		this.code=code;
+		this.des=des;
+		this.quantity=quantity;
+		this.amount=amount;
+		this.unit=unit;
+		this.urate=urate;
+		this.igst=igst;
+		this.cgst=cgst;
+		this.sgst=sgst;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public PoRawMaterial() {
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//initComponents();
+		
+		
+		
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1143, 772);
 		contentPane = new JPanel();

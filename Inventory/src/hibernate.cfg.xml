@@ -23,5 +23,7 @@
 		<mapping class="com.inventory.model.ComponentModel" />
 		<mapping class="com.inventory.model.MachineModel" />
 		<mapping class="com.inventory.model.PurchaseOrderModel"/>
+		<mapping class="com.inventory.model.Po_CastingModel"/>
+		<mapping class="com.inventory.model.PORawTableModel"/>
 	</session-factory>
 </hibernate-configuration>

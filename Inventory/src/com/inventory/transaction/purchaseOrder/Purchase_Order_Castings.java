@@ -31,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
 
 public class Purchase_Order_Castings extends JFrame {
 	JTextArea address;
@@ -51,6 +52,24 @@ public class Purchase_Order_Castings extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -92,7 +111,7 @@ public class Purchase_Order_Castings extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1047, 646);
+		setBounds(100, 100, 1105, 646);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -165,10 +184,13 @@ public class Purchase_Order_Castings extends JFrame {
 		textField_3.setColumns(10);
 		textField_3.setBounds(565, 141, 185, 26);
 		contentPane.add(textField_3);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 206, 993, 204);
+		contentPane.add(scrollPane);
 
 		table = new JTable();
-		table.setBounds(10, 206, 993, 204);
-		contentPane.add(table);
+		scrollPane.setViewportView(table);
 
 		JLabel lblSpecialInstruction = new JLabel("special  Instruction");
 		lblSpecialInstruction.setFont(new Font("Tahoma", Font.BOLD, 12));
