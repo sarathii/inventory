@@ -13,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.inventory.model.PORawTableModel;
 import com.inventory.model.RawModel;
+import com.inventory.model.VendorModel;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -39,6 +40,7 @@ public class PORawTable extends JFrame {
 	private JTextField cg;
 	private JComboBox rawcombo;
 	private JTextField s;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -82,6 +84,22 @@ public class PORawTable extends JFrame {
 					rawcombo.setModel(model);
 
 				}
+
+				
+				
+				List<VendorModel> products = session.createQuery(" from VendorModel ").list();
+				// System.out.println(customerModel.get());
+				DefaultComboBoxModel coModel = (DefaultComboBoxModel) comboBox.getModel();
+
+				for (VendorModel customerModel1 : products) {
+
+					coModel.addElement(customerModel1.getCode());
+
+					comboBox.setModel(coModel);
+
+				}
+
+				
 				session.getTransaction().commit();
 				// session.flush();
 				session.close();
@@ -208,8 +226,29 @@ public class PORawTable extends JFrame {
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				PORawTableModel model=new PORawTableModel();
+				model.setCode(rawcombo.getSelectedItem().toString());
+				model.setVenCode(comboBox.getSelectedItem().toString());
+				model.setAmount(Double.parseDouble(a.getText()));
+				model.setDes(d.getText());
+				model.setQuantity(Integer.parseInt(q.getText()));
+				model.setUnit(Integer.parseInt(u.getText()));
+				model.setUnitrate(Integer.parseInt(ur.getText()));
+				model.setIgst(Double.parseDouble(i.getText()));
+				model.setSgst(Double.parseDouble(s.getText()));
+				model.setCgst(Double.parseDouble(cg.getText()));
+
+				session.save(model);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
 				
-String code=rawcombo.getSelectedItem().toString();
+				
+				/*
+//String code=rawcombo.getSelectedItem().toString();
 		String des=d.getText();
 		int quantity=Integer.parseInt(q.getText());
 		Double amount=Double.parseDouble(a.getText());
@@ -218,11 +257,15 @@ String code=rawcombo.getSelectedItem().toString();
 				Double igst=Double.parseDouble(i.getText());
 				Double cgst=Double.parseDouble(cg.getText());
 				double sgst=Double.parseDouble(s.getText());
-				new PoRawMaterial(code ,des,quantity, amount, unit, urate, igst, cgst, sgst).setVisible(true);
-			}
+				//new PoRawMaterial(code ,des,quantity, amount, unit, urate, igst, cgst, sgst).setVisible(true);
+	*/		}
 		});
 		add.setIcon(new ImageIcon(PORawTable.class.getResource("/inventory/add.png")));
 		add.setBounds(205, 322, 89, 23);
 		contentPane.add(add);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(106, 11, 98, 20);
+		contentPane.add(comboBox);
 	}
 }

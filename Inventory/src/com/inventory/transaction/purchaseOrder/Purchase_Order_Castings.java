@@ -6,13 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.inventory.model.CastingTableModel;
 import com.inventory.model.ComponentModel;
 import com.inventory.model.CustomerModel;
+import com.inventory.model.PORawTableModel;
 import com.inventory.model.Po_CastingModel;
 import com.inventory.model.VendorModel;
 
@@ -26,28 +29,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import java.util.Vector;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
 
 public class Purchase_Order_Castings extends JFrame {
-	JTextArea address;
+	JTextArea adrs;
 	private JPanel contentPane;
-	JComboBox vendorCombo;
+	JComboBox comboBox;
 	private JTextField pono;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField date;
+	private JTextField order;
+	private JTextField ur_ref;
 	private JTable table;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField sins;
+	private JTextField deli;
+	private JTextField delipoint;
+	private JTextField insurance;
+	private JTextField pay;
+	private JTextField trans;
 
 	/**
 	 * Launch the application.
@@ -96,13 +102,13 @@ public class Purchase_Order_Castings extends JFrame {
 				session.beginTransaction();
 				List<VendorModel> products = session.createQuery(" from VendorModel ").list();
 				// System.out.println(customerModel.get());
-				DefaultComboBoxModel coModel = (DefaultComboBoxModel) vendorCombo.getModel();
+				DefaultComboBoxModel coModel = (DefaultComboBoxModel) comboBox.getModel();
 
 				for (VendorModel vendor : products) {
 
 					coModel.addElement(vendor.getCode());
 
-					vendorCombo.setModel(coModel);
+					comboBox.setModel(coModel);
 
 				}
 				Po_CastingModel po=new Po_CastingModel();
@@ -111,7 +117,7 @@ public class Purchase_Order_Castings extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1105, 646);
+		setBounds(100, 100, 1105, 789);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -122,28 +128,28 @@ public class Purchase_Order_Castings extends JFrame {
 		lblNewLabel.setBounds(10, 22, 101, 14);
 		contentPane.add(lblNewLabel);
 
-		vendorCombo = new JComboBox();
-		vendorCombo.addActionListener(new ActionListener() {
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
-				String part = vendorCombo.getSelectedItem().toString();
+				String part = comboBox.getSelectedItem().toString();
 				VendorModel vendor = (VendorModel) session.get(VendorModel.class, part);
-				address.setText(vendor.getAddress());
+				adrs.setText(vendor.getAddress());
 				session.getTransaction().commit();
 				session.close();
 				sessionFactory.close();
 
 			}
 		});
-		vendorCombo.setBounds(105, 20, 58, 20);
-		contentPane.add(vendorCombo);
+		comboBox.setBounds(105, 20, 72, 20);
+		contentPane.add(comboBox);
 
-		address = new JTextArea();
-		address.setBounds(10, 65, 264, 73);
-		contentPane.add(address);
+		adrs = new JTextArea();
+		adrs.setBounds(10, 65, 264, 73);
+		contentPane.add(adrs);
 
 		JLabel lblNewLabel_1 = new JLabel("P.o.No");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -160,33 +166,33 @@ public class Purchase_Order_Castings extends JFrame {
 		lblNewLabel_2.setBounds(432, 65, 46, 14);
 		contentPane.add(lblNewLabel_2);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(565, 65, 185, 28);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		date = new JTextField();
+		date.setBounds(565, 65, 185, 28);
+		contentPane.add(date);
+		date.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("Order valid upto");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_3.setBounds(419, 109, 100, 15);
 		contentPane.add(lblNewLabel_3);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(565, 104, 185, 26);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		order = new JTextField();
+		order.setBounds(565, 104, 185, 26);
+		contentPane.add(order);
+		order.setColumns(10);
 
 		JLabel lblYourReference = new JLabel("Your Reference");
 		lblYourReference.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblYourReference.setBounds(419, 137, 100, 15);
 		contentPane.add(lblYourReference);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(565, 141, 185, 26);
-		contentPane.add(textField_3);
+		ur_ref = new JTextField();
+		ur_ref.setColumns(10);
+		ur_ref.setBounds(565, 141, 185, 26);
+		contentPane.add(ur_ref);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 206, 993, 204);
+		scrollPane.setBounds(10, 178, 948, 204);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -194,80 +200,215 @@ public class Purchase_Order_Castings extends JFrame {
 
 		JLabel lblSpecialInstruction = new JLabel("special  Instruction");
 		lblSpecialInstruction.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblSpecialInstruction.setBounds(10, 421, 100, 15);
+		lblSpecialInstruction.setBounds(10, 393, 117, 15);
 		contentPane.add(lblSpecialInstruction);
 
-		textField_4 = new JTextField();
-		textField_4.setBounds(130, 415, 589, 28);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		sins = new JTextField();
+		sins.setBounds(151, 393, 589, 28);
+		contentPane.add(sins);
+		sins.setColumns(10);
 
 		JLabel lblDelivery = new JLabel("delivery");
 		lblDelivery.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblDelivery.setBounds(11, 457, 100, 15);
+		lblDelivery.setBounds(11, 431, 47, 15);
 		contentPane.add(lblDelivery);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(105, 452, 185, 26);
-		contentPane.add(textField_5);
+		deli = new JTextField();
+		deli.setColumns(10);
+		deli.setBounds(82, 432, 185, 26);
+		contentPane.add(deli);
 
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(432, 452, 185, 26);
-		contentPane.add(textField_6);
+		delipoint = new JTextField();
+		delipoint.setColumns(10);
+		delipoint.setBounds(375, 432, 185, 26);
+		contentPane.add(delipoint);
 
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(735, 452, 185, 26);
-		contentPane.add(textField_7);
+		insurance = new JTextField();
+		insurance.setColumns(10);
+		insurance.setBounds(676, 432, 185, 26);
+		contentPane.add(insurance);
 
 		JLabel lblDeliveryPoint = new JLabel("delivery point");
 		lblDeliveryPoint.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblDeliveryPoint.setBounds(315, 455, 100, 18);
+		lblDeliveryPoint.setBounds(277, 435, 100, 18);
 		contentPane.add(lblDeliveryPoint);
 
 		JLabel lblInsurance = new JLabel("Insurance");
 		lblInsurance.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblInsurance.setBounds(640, 454, 100, 20);
+		lblInsurance.setBounds(584, 434, 100, 20);
 		contentPane.add(lblInsurance);
 
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(128, 502, 185, 26);
-		contentPane.add(textField_8);
+		pay = new JTextField();
+		pay.setColumns(10);
+		pay.setBounds(120, 469, 185, 26);
+		contentPane.add(pay);
 
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(495, 502, 185, 26);
-		contentPane.add(textField_9);
+		trans = new JTextField();
+		trans.setColumns(10);
+		trans.setBounds(894, 388, 185, 26);
+		contentPane.add(trans);
 
 		JLabel lblTransport = new JLabel("Transport");
 		lblTransport.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTransport.setBounds(408, 505, 100, 18);
+		lblTransport.setBounds(758, 393, 100, 18);
 		contentPane.add(lblTransport);
 
 		JLabel lblPaymentTerm = new JLabel("payment Term");
 		lblPaymentTerm.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblPaymentTerm.setBounds(11, 508, 100, 18);
+		lblPaymentTerm.setBounds(10, 469, 100, 18);
 		contentPane.add(lblPaymentTerm);
 
 		JMenuItem menuItem = new JMenuItem("save");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
 		menuItem.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/save.png")));
 		menuItem.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem.setBounds(56, 555, 82, 26);
+		menuItem.setBounds(10, 661, 82, 26);
 		contentPane.add(menuItem);
 
 		JMenuItem menuItem_2 = new JMenuItem("Update");
 		menuItem_2.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/update.png")));
 		menuItem_2.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem_2.setBounds(184, 552, 129, 29);
+		menuItem_2.setBounds(120, 658, 129, 29);
 		contentPane.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("Delete");
 		menuItem_3.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/delete.png")));
 		menuItem_3.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem_3.setBounds(323, 555, 129, 29);
+		menuItem_3.setBounds(247, 661, 129, 29);
 		contentPane.add(menuItem_3);
+		
+		JButton button = new JButton("Add");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		button.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/add.png")));
+		button.setBounds(986, 214, 81, 26);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("View");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				
+
+				//String pri = comboBox.getSelectedItem().toString();
+				@SuppressWarnings("unchecked")
+				List<CastingTableModel> products = session
+						.createQuery("from CastingTableModel model where model.v_code='ven'").list();
+				// query.setParameter("pri", "%" + pri + "%");
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("id");
+				tableHeaders.add("code");
+				tableHeaders.add("description");
+				tableHeaders.add("quantity");
+				tableHeaders.add("unit");
+				tableHeaders.add("unitRate");
+				tableHeaders.add("amount");
+				tableHeaders.add("igst");
+				tableHeaders.add("cgst");
+				tableHeaders.add("sgst");
+
+				// tableHeaders.add("name");
+
+				for (Object o : products) {
+					CastingTableModel model = (CastingTableModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model.getId());
+					oneRow.add(model.getPart_code());
+					oneRow.add(model.getPart_des());
+					oneRow.add(model.getQty());
+					oneRow.add(model.getUom());
+					oneRow.add(model.getRate());
+					oneRow.add(model.getAmount());
+					oneRow.add(model.getIgst());
+					oneRow.add(model.getCgst());
+					oneRow.add(model.getSgst());
+					oneRow.add(model.getNorms());
+					oneRow.add(model.getRemarks());
+					tableData.add(oneRow);
+				}
+				table.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session.getTransaction().commit();
+				session.flush();
+				session.close();
+				sessionFactory.close();
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		button_1.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/viw.png")));
+		button_1.setBounds(986, 251, 78, 29);
+		contentPane.add(button_1);
+		
+		JButton button_2 = new JButton("Delete");
+		button_2.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/delete.png")));
+		button_2.setBounds(986, 291, 87, 29);
+		contentPane.add(button_2);
 	}
 }

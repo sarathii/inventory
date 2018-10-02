@@ -1,15 +1,37 @@
 package com.inventory.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class PORawTableModel {
-@Id
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private String venCode;
 	private String code, des;
 
+	public String getVenCode() {
+		return venCode;
+	}
+
+	public void setVenCode(String venCode) {
+		this.venCode = venCode;
+	}
+
 	private int quantity, unit, unitrate;
-	private double amount, igst, cgst,sgst;
+	private double amount, igst, cgst, sgst;
 
 	public String getCode() {
 		return code;
@@ -82,7 +104,5 @@ public class PORawTableModel {
 	public void setSgst(double sgst) {
 		this.sgst = sgst;
 	}
-
-	
 
 }
