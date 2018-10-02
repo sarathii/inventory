@@ -27,5 +27,6 @@
 		<mapping class="com.inventory.model.PORawTableModel"/>
 		<mapping class="com.inventory.model.PORawMaterialModel"/>
 		<mapping class="com.inventory.model.CastingTableModel"/>
+			<mapping class="com.inventory.model.Po_CastingModel"/>
 	</session-factory>
 </hibernate-configuration>

@@ -15,6 +15,7 @@ import org.hibernate.cfg.Configuration;
 import com.inventory.model.CastingTableModel;
 import com.inventory.model.ComponentModel;
 import com.inventory.model.CustomerModel;
+import com.inventory.model.PORawMaterialModel;
 import com.inventory.model.PORawTableModel;
 import com.inventory.model.Po_CastingModel;
 import com.inventory.model.VendorModel;
@@ -28,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -54,6 +56,7 @@ public class Purchase_Order_Castings extends JFrame {
 	private JTextField insurance;
 	private JTextField pay;
 	private JTextField trans;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
@@ -265,7 +268,79 @@ public class Purchase_Order_Castings extends JFrame {
 				
 				
 				
-				
+
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+
+		Po_CastingModel model = new Po_CastingModel();
+
+				model.setVenCode(comboBox.getSelectedItem().toString());
+				model.setV_address(adrs.getText());
+				model.setDate(new Date(date.getText()));
+				model.setOrder_valid(new Date(order.getText()));
+				model.setDel_point(delipoint.getText());
+				model.setDeli(deli.getText());
+				model.setInsurance(insurance.getText());
+				model.setPay_mode(pay.getText());
+				model.setPo_no(Integer.parseInt(pono.getText()));
+				model.setSpecial_ins(sins.getText());
+				model.setTrans(trans.getText());
+				model.setUr_ref(ur_ref.getText());
+			
+				// model.setInsurance(insurance.getText());
+				// model.set
+				session.save(model);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<Po_CastingModel> products = session1.createQuery("from Po_CastingModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("vendorcode");
+				tableHeaders.add("vendor_adrs");
+				tableHeaders.add("po_no");
+				tableHeaders.add("date");
+				tableHeaders.add("order_valid");
+				tableHeaders.add("ur_ref");
+				tableHeaders.add("special_instruction");
+				tableHeaders.add("delivery");
+				tableHeaders.add("delvery point");
+				tableHeaders.add("insurance");
+				tableHeaders.add("payment mode");
+				tableHeaders.add("transport");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					Po_CastingModel model1 = (Po_CastingModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model1.getVenCode());
+					oneRow.add(model1.getV_address());
+					oneRow.add(model1.getPo_no());
+					oneRow.add(model1.getDate());
+					oneRow.add(model1.getOrder_valid());
+					oneRow.add(model1.getUr_ref());
+					oneRow.add(model1.getSpecial_ins());
+					oneRow.add(model1.getDeli());
+					oneRow.add(model1.getDel_point());
+					oneRow.add(model1.getInsurance());
+					oneRow.add(model1.getPay_mode());
+					oneRow.add(model1.getTrans());
+
+					tableData.add(oneRow);
+				}
+				table_1.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.getTransaction().commit();
+				session1.close();
+				sessionFactory1.close();
+
 				
 				
 				
@@ -286,19 +361,234 @@ public class Purchase_Order_Castings extends JFrame {
 		});
 		menuItem.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/save.png")));
 		menuItem.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem.setBounds(10, 661, 82, 26);
+		menuItem.setBounds(68, 688, 82, 26);
 		contentPane.add(menuItem);
 
 		JMenuItem menuItem_2 = new JMenuItem("Update");
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+
+				Po_CastingModel model=new Po_CastingModel();
+
+				model.setVenCode(comboBox.getSelectedItem().toString());
+				model.setV_address(adrs.getText());
+				model.setDate(new Date(date.getText()));
+				model.setOrder_valid(new Date(order.getText()));
+				model.setDel_point(delipoint.getText());
+				model.setDeli(deli.getText());
+				model.setInsurance(insurance.getText());
+				model.setPay_mode(pay.getText());
+				model.setPo_no(Integer.parseInt(pono.getText()));
+				model.setSpecial_ins(sins.getText());
+				model.setTrans(trans.getText());
+				model.setUr_ref(ur_ref.getText());
+				// model.setInsurance(insurance.getText());
+				// model.set
+				session.update(model);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+
+			
+			
+			
+			
+			
+				
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<Po_CastingModel> products = session1.createQuery("from Po_CastingModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("vendorcode");
+				tableHeaders.add("vendor_adrs");
+				tableHeaders.add("po_no");
+				tableHeaders.add("date");
+				tableHeaders.add("order_valid");
+				tableHeaders.add("ur_ref");
+				tableHeaders.add("special_instruction");
+				tableHeaders.add("delivery");
+				tableHeaders.add("delvery point");
+				tableHeaders.add("insurance");
+				tableHeaders.add("payment mode");
+				tableHeaders.add("transport");
+				
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					Po_CastingModel model1 = (Po_CastingModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model1.getVenCode());
+					oneRow.add(model1.getV_address());
+					oneRow.add(model1.getPo_no());
+					oneRow.add(model1.getDate());
+					oneRow.add(model1.getOrder_valid());
+					oneRow.add(model1.getUr_ref());
+					oneRow.add(model1.getSpecial_ins());
+					oneRow.add(model1.getDeli());
+					oneRow.add(model1.getDel_point());
+					oneRow.add(model1.getInsurance());
+					oneRow.add(model1.getPay_mode());
+					oneRow.add(model1.getTrans());
+					
+					tableData.add(oneRow);
+				}
+				table_1.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.getTransaction().commit();
+				session1.close();
+				sessionFactory1.close();
+				
+			
+			
+			
+			
+			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
 		menuItem_2.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/update.png")));
 		menuItem_2.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem_2.setBounds(120, 658, 129, 29);
+		menuItem_2.setBounds(190, 685, 129, 29);
 		contentPane.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("Delete");
+		menuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				// ComponentModel componentModel = new ComponentModel();
+				Po_CastingModel model=new Po_CastingModel();
+				model.setPo_no(Integer.parseInt(pono.getText()));
+
+				// componentModel.setPartCode(comPartCode.getText());
+				session.delete(model);
+				session.getTransaction().commit();
+
+				session.close();
+				sessionFactory.close();
+
+				// to clear
+
+				adrs.setText("");
+				date.setText("");
+				order.setText("");
+				delipoint.setText("");
+				deli.setText("");
+				insurance.setText("");
+				pay.setText("");
+				pono.setText("");
+				sins.setText("");
+				trans.setText("");
+				ur_ref.setText("");
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				// to update table
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<Po_CastingModel> products = session1.createQuery("from Po_CastingModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("vendorcode");
+				tableHeaders.add("vendor_adrs");
+				tableHeaders.add("po_no");
+				tableHeaders.add("date");
+				tableHeaders.add("order_valid");
+				tableHeaders.add("ur_ref");
+				tableHeaders.add("special_instruction");
+				tableHeaders.add("delivery");
+				tableHeaders.add("delvery point");
+				tableHeaders.add("insurance");
+				tableHeaders.add("payment mode");
+				tableHeaders.add("transport");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					Po_CastingModel model1 = (Po_CastingModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model1.getVenCode());
+					oneRow.add(model1.getV_address());
+					oneRow.add(model1.getPo_no());
+					oneRow.add(model1.getDate());
+					oneRow.add(model1.getOrder_valid());
+					oneRow.add(model1.getUr_ref());
+					oneRow.add(model1.getSpecial_ins());
+					oneRow.add(model1.getDeli());
+					oneRow.add(model1.getDel_point());
+					oneRow.add(model1.getInsurance());
+					oneRow.add(model1.getPay_mode());
+					oneRow.add(model1.getTrans());
+
+					tableData.add(oneRow);
+				}
+				table_1.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.getTransaction().commit();
+				session1.close();
+				sessionFactory1.close();
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
 		menuItem_3.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/delete.png")));
 		menuItem_3.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem_3.setBounds(247, 661, 129, 29);
+		menuItem_3.setBounds(315, 688, 101, 26);
 		contentPane.add(menuItem_3);
 		
 		JButton button = new JButton("Add");
@@ -310,7 +600,8 @@ public class Purchase_Order_Castings extends JFrame {
 				
 				
 				
-				
+		CastingTable table=new CastingTable();
+		table.setVisible(true);
 				
 				
 				
@@ -410,5 +701,144 @@ public class Purchase_Order_Castings extends JFrame {
 		button_2.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/delete.png")));
 		button_2.setBounds(986, 291, 87, 29);
 		contentPane.add(button_2);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(24, 512, 1043, 162);
+		contentPane.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		
+		JButton btnViewAll = new JButton("View all");
+		btnViewAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+				
+				
+				SessionFactory sessionFactory1 = new Configuration().configure().buildSessionFactory();
+				Session session1 = sessionFactory1.openSession();
+				session1.beginTransaction();
+
+				@SuppressWarnings("unchecked")
+				List<Po_CastingModel> products = session1.createQuery("from Po_CastingModel").list();
+
+				Vector<String> tableHeaders = new Vector<String>();
+				Vector tableData = new Vector();
+				tableHeaders.add("vendorcode");
+				tableHeaders.add("vendor_adrs");
+				tableHeaders.add("po_no");
+				tableHeaders.add("date");
+				tableHeaders.add("order_valid");
+				tableHeaders.add("ur_ref");
+				tableHeaders.add("special_instruction");
+				tableHeaders.add("delivery");
+				tableHeaders.add("delvery point");
+				tableHeaders.add("insurance");
+				tableHeaders.add("payment mode");
+				tableHeaders.add("transport");
+
+				// tableHeaders.add("name");
+				for (Object o : products) {
+					Po_CastingModel model1 = (Po_CastingModel) o;
+					Vector<Object> oneRow = new Vector<Object>();
+					oneRow.add(model1.getVenCode());
+					oneRow.add(model1.getV_address());
+					oneRow.add(model1.getPo_no());
+					oneRow.add(model1.getDate());
+					oneRow.add(model1.getOrder_valid());
+					oneRow.add(model1.getUr_ref());
+					oneRow.add(model1.getSpecial_ins());
+					oneRow.add(model1.getDeli());
+					oneRow.add(model1.getDel_point());
+					oneRow.add(model1.getInsurance());
+					oneRow.add(model1.getPay_mode());
+					oneRow.add(model1.getTrans());
+
+					tableData.add(oneRow);
+				}
+				table_1.setModel(new DefaultTableModel(tableData, tableHeaders));
+				session1.getTransaction().commit();
+				session1.close();
+				sessionFactory1.close();
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		btnViewAll.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnViewAll.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/view all.png")));
+		btnViewAll.setBounds(448, 685, 103, 29);
+		contentPane.add(btnViewAll);
+		
+		JButton button_4 = new JButton("View");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+				int index = table_1.getSelectedRow();
+
+				comboBox.setSelectedItem(model.getValueAt(index, 0).toString());
+				adrs.setText(model.getValueAt(index, 1).toString());
+				pono.setText(model.getValueAt(index, 2).toString());
+
+				String str = model.getValueAt(index, 3).toString();
+				// String s=from1.getText();
+				String from = str.replace('-', '/');
+				// model.getValueAt(index, 12)(new Date(newString));
+				date.setText(from);
+				String str1 = model.getValueAt(index, 4).toString();
+				// String s=from1.getText();
+				String from12 = str1.replace('-', '/');
+				order.setText(from12);
+
+				sins.setText(model.getValueAt(index, 5).toString());
+				deli.setText(model.getValueAt(index, 6).toString());
+				delipoint.setText(model.getValueAt(index, 7).toString());
+
+				insurance.setText(model.getValueAt(index, 8).toString());
+				pay.setText(model.getValueAt(index, 9).toString());
+
+				trans.setText(model.getValueAt(index, 10).toString());
+	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		button_4.setIcon(new ImageIcon(Purchase_Order_Castings.class.getResource("/inventory/viw.png")));
+		button_4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		button_4.setBounds(598, 691, 85, 29);
+		contentPane.add(button_4);
 	}
 }
