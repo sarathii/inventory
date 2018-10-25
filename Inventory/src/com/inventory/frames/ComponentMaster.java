@@ -45,6 +45,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import javax.swing.JMenuBar;
 
 public class ComponentMaster extends JFrame {
 
@@ -87,6 +88,7 @@ public class ComponentMaster extends JFrame {
 	private JLabel rawName;
 	private JLabel cusName;
 	private JScrollPane scrollPane;
+	private JButton btnHome;
 
 	/**
 	 * Launch the application.
@@ -97,6 +99,7 @@ public class ComponentMaster extends JFrame {
 				try {
 					ComponentMaster frame = new ComponentMaster();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -170,18 +173,16 @@ public class ComponentMaster extends JFrame {
 				sessionFactory.close();
 
 			}
+
 			@Override
 			public void windowClosed(WindowEvent arg0) {
-				
-				Home home=new Home();
-				
-				
+
 				
 			}
 		});
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 998, 772);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1062, 772);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.control);
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -190,7 +191,7 @@ public class ComponentMaster extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Customer");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblNewLabel.setBounds(41, 69, 61, 17);
+		lblNewLabel.setBounds(51, 123, 61, 17);
 		contentPane.add(lblNewLabel);
 
 		cusCombo = new JComboBox();
@@ -212,18 +213,18 @@ public class ComponentMaster extends JFrame {
 			}
 		});
 		cusCombo.setBackground(SystemColor.window);
-		cusCombo.setBounds(211, 68, 86, 20);
+		cusCombo.setBounds(211, 122, 86, 20);
 		contentPane.add(cusCombo);
 
 		cusName = new JLabel("");
 		cusName.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		cusName.setBackground(Color.WHITE);
-		cusName.setBounds(334, 64, 280, 22);
+		cusName.setBounds(334, 122, 280, 22);
 		contentPane.add(cusName);
 
 		JLabel lblRaw = new JLabel("Raw");
 		lblRaw.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblRaw.setBounds(41, 112, 61, 17);
+		lblRaw.setBounds(60, 167, 61, 17);
 		contentPane.add(lblRaw);
 
 		rawCombo = new JComboBox();
@@ -242,218 +243,218 @@ public class ComponentMaster extends JFrame {
 			}
 		});
 		rawCombo.setBackground(Color.WHITE);
-		rawCombo.setBounds(211, 111, 86, 20);
+		rawCombo.setBounds(211, 166, 86, 20);
 		contentPane.add(rawCombo);
 
 		rawName = new JLabel("");
 		rawName.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		rawName.setBackground(Color.WHITE);
-		rawName.setBounds(334, 109, 280, 20);
+		rawName.setBounds(334, 164, 280, 20);
 		contentPane.add(rawName);
 
 		JLabel lblNewLabel_2 = new JLabel("Component Name");
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(41, 154, 110, 17);
+		lblNewLabel_2.setBounds(41, 222, 110, 17);
 		contentPane.add(lblNewLabel_2);
 
 		comName = new JTextField();
 		comName.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		comName.setBounds(211, 148, 323, 28);
+		comName.setBounds(211, 216, 323, 28);
 		contentPane.add(comName);
 		comName.setColumns(10);
 
 		JLabel lblComponent = new JLabel(" Comonent's Part No");
 		lblComponent.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblComponent.setBounds(35, 191, 128, 17);
+		lblComponent.setBounds(35, 261, 128, 17);
 		contentPane.add(lblComponent);
 
 		comPartno = new JTextField();
 		comPartno.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		comPartno.setColumns(10);
-		comPartno.setBounds(211, 187, 261, 28);
+		comPartno.setBounds(211, 255, 261, 28);
 		contentPane.add(comPartno);
 
 		JLabel lblPartCode = new JLabel("Part Code");
 		lblPartCode.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblPartCode.setBounds(482, 191, 61, 17);
+		lblPartCode.setBounds(485, 261, 61, 17);
 		contentPane.add(lblPartCode);
 
 		comPartCode = new JTextField();
 		comPartCode.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		comPartCode.setColumns(10);
-		comPartCode.setBounds(553, 185, 261, 28);
+		comPartCode.setBounds(556, 255, 261, 28);
 		contentPane.add(comPartCode);
 
 		JLabel lblHsnsacCode = new JLabel("HSN/SAC Code");
 		lblHsnsacCode.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblHsnsacCode.setBounds(41, 232, 110, 17);
+		lblHsnsacCode.setBounds(41, 312, 110, 17);
 		contentPane.add(lblHsnsacCode);
 
 		hsnCode = new JTextField();
 		hsnCode.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		hsnCode.setColumns(10);
-		hsnCode.setBounds(211, 226, 261, 28);
+		hsnCode.setBounds(211, 306, 261, 28);
 		contentPane.add(hsnCode);
 
 		JLabel lblNormsWeight = new JLabel("Norms Weight");
 		lblNormsWeight.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblNormsWeight.setBounds(41, 281, 110, 17);
+		lblNormsWeight.setBounds(53, 340, 110, 17);
 		contentPane.add(lblNormsWeight);
 
 		JLabel lblFromDate = new JLabel("From Date");
 		lblFromDate.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblFromDate.setBounds(206, 281, 110, 17);
+		lblFromDate.setBounds(206, 340, 110, 17);
 		contentPane.add(lblFromDate);
 
 		JLabel lblToDate = new JLabel("To Date");
 		lblToDate.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblToDate.setBounds(351, 281, 110, 17);
+		lblToDate.setBounds(362, 340, 110, 17);
 		contentPane.add(lblToDate);
 
 		norm1 = new JTextField();
 		norm1.setText("0");
 		norm1.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm1.setColumns(10);
-		norm1.setBounds(48, 314, 115, 28);
+		norm1.setBounds(48, 368, 115, 28);
 		contentPane.add(norm1);
 
 		from1 = new JTextField();
 		from1.setText("00/00/0000");
 		from1.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from1.setColumns(10);
-		from1.setBounds(194, 314, 115, 28);
+		from1.setBounds(201, 368, 115, 28);
 		contentPane.add(from1);
 
 		to1 = new JTextField();
 		to1.setText("00/00/0000");
 		to1.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to1.setColumns(10);
-		to1.setBounds(351, 314, 115, 28);
+		to1.setBounds(357, 368, 115, 28);
 		contentPane.add(to1);
 
 		to2 = new JTextField();
 		to2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to2.setColumns(10);
-		to2.setBounds(351, 353, 115, 28);
+		to2.setBounds(357, 407, 115, 28);
 		contentPane.add(to2);
 
 		from2 = new JTextField();
 		from2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from2.setColumns(10);
-		from2.setBounds(194, 358, 115, 28);
+		from2.setBounds(201, 407, 115, 28);
 		contentPane.add(from2);
 
 		norm2 = new JTextField();
 		norm2.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm2.setColumns(10);
-		norm2.setBounds(48, 353, 115, 28);
+		norm2.setBounds(48, 407, 115, 28);
 		contentPane.add(norm2);
 
 		norm3 = new JTextField();
 		norm3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm3.setColumns(10);
-		norm3.setBounds(48, 397, 115, 28);
+		norm3.setBounds(48, 446, 115, 28);
 		contentPane.add(norm3);
 
 		from3 = new JTextField();
 		from3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from3.setColumns(10);
-		from3.setBounds(194, 397, 115, 28);
+		from3.setBounds(201, 446, 115, 28);
 		contentPane.add(from3);
 
 		to3 = new JTextField();
 		to3.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to3.setColumns(10);
-		to3.setBounds(351, 396, 115, 28);
+		to3.setBounds(357, 446, 115, 28);
 		contentPane.add(to3);
 
 		JLabel lblAmortiosationValuepercomponent = new JLabel("Amortiosation Value (PerComponent)");
 		lblAmortiosationValuepercomponent.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblAmortiosationValuepercomponent.setBounds(21, 489, 234, 17);
+		lblAmortiosationValuepercomponent.setBounds(21, 526, 234, 17);
 		contentPane.add(lblAmortiosationValuepercomponent);
 
 		aValue = new JTextField();
 		aValue.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		aValue.setColumns(10);
-		aValue.setBounds(265, 487, 115, 20);
+		aValue.setBounds(265, 524, 115, 20);
 		contentPane.add(aValue);
 
 		JLabel lblAmortiosationFromDate = new JLabel("Amortiosation From Date");
 		lblAmortiosationFromDate.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblAmortiosationFromDate.setBounds(390, 489, 163, 17);
+		lblAmortiosationFromDate.setBounds(402, 526, 163, 17);
 		contentPane.add(lblAmortiosationFromDate);
 
 		amFrom = new JTextField();
 		amFrom.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		amFrom.setColumns(10);
-		amFrom.setBounds(563, 487, 115, 20);
+		amFrom.setBounds(596, 524, 115, 20);
 		contentPane.add(amFrom);
 
 		JLabel lblAmortiosationQty = new JLabel("Amortiosation Qty");
 		lblAmortiosationQty.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblAmortiosationQty.setBounds(688, 489, 115, 17);
+		lblAmortiosationQty.setBounds(721, 526, 115, 17);
 		contentPane.add(lblAmortiosationQty);
 
 		amQty = new JTextField();
 		amQty.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		amQty.setColumns(10);
-		amQty.setBounds(813, 487, 128, 20);
+		amQty.setBounds(846, 524, 128, 20);
 		contentPane.add(amQty);
 
 		norm4 = new JTextField();
 		norm4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		norm4.setColumns(10);
-		norm4.setBounds(48, 436, 115, 28);
+		norm4.setBounds(48, 485, 115, 28);
 		contentPane.add(norm4);
 
 		from4 = new JTextField();
 		from4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		from4.setColumns(10);
-		from4.setBounds(194, 435, 115, 28);
+		from4.setBounds(201, 485, 115, 28);
 		contentPane.add(from4);
 
 		to4 = new JTextField();
 		to4.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		to4.setColumns(10);
-		to4.setBounds(351, 436, 115, 28);
+		to4.setBounds(357, 485, 115, 28);
 		contentPane.add(to4);
 
 		lblFettlingRate = new JLabel("Fettling Rate");
 		lblFettlingRate.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblFettlingRate.setBounds(21, 517, 81, 17);
+		lblFettlingRate.setBounds(744, 568, 81, 17);
 		contentPane.add(lblFettlingRate);
 
 		fRate = new JTextField();
 		fRate.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		fRate.setColumns(10);
-		fRate.setBounds(123, 517, 115, 22);
+		fRate.setBounds(859, 565, 115, 22);
 		contentPane.add(fRate);
 
 		lblPackagingMode = new JLabel("Packaging Mode");
 		lblPackagingMode.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblPackagingMode.setBounds(265, 518, 100, 17);
+		lblPackagingMode.setBounds(51, 568, 100, 17);
 		contentPane.add(lblPackagingMode);
 
 		packMode = new JComboBox();
 		packMode.setModel(new DefaultComboBoxModel(new String[] { "Tray", "Gunny Bag", "Box", "Bag" }));
 		packMode.setBackground(Color.WHITE);
-		packMode.setBounds(400, 516, 110, 20);
+		packMode.setBounds(206, 567, 110, 20);
 		contentPane.add(packMode);
 
 		lblNoOfCavities = new JLabel("No Of Cavities");
 		lblNoOfCavities.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblNoOfCavities.setBounds(536, 517, 100, 17);
+		lblNoOfCavities.setBounds(434, 568, 100, 17);
 		contentPane.add(lblNoOfCavities);
 
 		noCav = new JTextField();
 		noCav.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		noCav.setColumns(10);
-		noCav.setBounds(646, 518, 115, 20);
+		noCav.setBounds(596, 566, 115, 20);
 		contentPane.add(noCav);
 
 		lblMouldCode = new JLabel("Mould Code");
 		lblMouldCode.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblMouldCode.setBounds(21, 554, 100, 17);
+		lblMouldCode.setBounds(495, 418, 100, 17);
 		contentPane.add(lblMouldCode);
 
 		mouldCombo = new JComboBox();
@@ -473,16 +474,16 @@ public class ComponentMaster extends JFrame {
 			}
 		});
 		mouldCombo.setBackground(Color.WHITE);
-		mouldCombo.setBounds(123, 553, 132, 20);
+		mouldCombo.setBounds(599, 412, 132, 20);
 		contentPane.add(mouldCombo);
 		mouldName = new JLabel("");
 		mouldName.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		mouldName.setBackground(Color.WHITE);
-		mouldName.setBounds(273, 556, 280, 20);
+		mouldName.setBounds(756, 412, 280, 20);
 		contentPane.add(mouldName);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(35, 582, 814, 146);
+		scrollPane.setBounds(35, 598, 814, 130);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -519,31 +520,31 @@ public class ComponentMaster extends JFrame {
 				if (!from2.getText().isEmpty()) {
 					componentModel.setFrom2(new Date(from2.getText()));
 				}
-				
+
 				if (!from3.getText().isEmpty()) {
 					componentModel.setFrom3(new Date(from3.getText()));
 				}
-				
+
 				if (!from4.getText().isEmpty()) {
 					componentModel.setFrom4(new Date(from4.getText()));
 				}
-					
+
 				if (!to1.getText().isEmpty()) {
 					componentModel.setTo1(new Date(to1.getText()));
 				}
-				
+
 				if (!to2.getText().isEmpty()) {
 					componentModel.setTo2(new Date(to2.getText()));
 				}
-			
+
 				if (!to3.getText().isEmpty()) {
 					componentModel.setTo3(new Date(to3.getText()));
 				}
-				
+
 				if (!to4.getText().isEmpty()) {
 					componentModel.setTo4(new Date(to4.getText()));
 				}
-				
+
 				componentModel.setNorm1(Long.parseLong(norm1.getText()));
 
 				if (!norm2.getText().isEmpty()) {
@@ -557,7 +558,7 @@ public class ComponentMaster extends JFrame {
 					componentModel.setNorm4(Long.parseLong(norm4.getText()));
 
 				}
-				//componentModel.setTo1(new Date(to1.getText()));
+				// componentModel.setTo1(new Date(to1.getText()));
 
 				componentModel.setAmValue(Long.parseLong(aValue.getText()));
 				componentModel.setAmFrom(new Date(amFrom.getText()));
@@ -805,8 +806,15 @@ public class ComponentMaster extends JFrame {
 				session.beginTransaction();
 				ComponentModel componentModel = new ComponentModel();
 				componentModel.setPartCode(comPartCode.getText());
+				
+				int result = JOptionPane.showConfirmDialog(null,
+						"Are you sure you delete   " + comPartCode.getText() + "  ?", null, JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+				
 				session.delete(componentModel);
 				session.getTransaction().commit();
+				
+				}
 				session.close();
 				sessionFactory.close();
 
@@ -1061,13 +1069,30 @@ public class ComponentMaster extends JFrame {
 				noCav.setText(model.getValueAt(index, 25).toString());
 				mouldCombo.setSelectedItem(model.getValueAt(index, 26).toString());
 				mouldName.setText(model.getValueAt(index, 27).toString());
-			//	session.getTransaction().commit();
-				//session.close();
-				//sessionFactory.close();
+				// session.getTransaction().commit();
+				// session.close();
+				// sessionFactory.close();
 			}
 		});
 		btnNewButton_1.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/viw.png")));
 		btnNewButton_1.setBounds(863, 661, 89, 40);
 		contentPane.add(btnNewButton_1);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(73, 30, 619, 21);
+		contentPane.add(menuBar);
+		
+		btnHome = new JButton("Home");
+		btnHome.setIcon(new ImageIcon(ComponentMaster.class.getResource("/inventory/home (1).png")));
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				Home home=new Home();
+				home.setVisible(true);
+			}
+		});
+		btnHome.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnHome.setBounds(453, 0, 102, 29);
+		contentPane.add(btnHome);
 	}
 }

@@ -94,7 +94,7 @@ public class Home extends JFrame {
 		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				dispose();
 				VendorForm vendor = new VendorForm();
 
 				vendor.setVisible(true);
@@ -107,7 +107,7 @@ public class Home extends JFrame {
 		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				dispose();
 				ComponentMaster  componentMaster =new ComponentMaster();
 				componentMaster.setVisible(true);
 				
@@ -122,7 +122,7 @@ public class Home extends JFrame {
 		mntmNewMenuItem_5.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				dispose();
 				MouldMaster mould = new MouldMaster();
 				mould.setVisible(true);
 
@@ -135,7 +135,7 @@ public class Home extends JFrame {
 				mntmNewMenuItem_4.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-						
+						dispose();
 						Raw raw=new Raw();
 						raw.setVisible(true);
 						
@@ -148,7 +148,7 @@ public class Home extends JFrame {
 				mntmNewMenuItem_6.setFont(new Font("Segoe UI", Font.BOLD, 12));
 				mntmNewMenuItem_6.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+						dispose();
 						MachineMaster machineMaster=new MachineMaster();
 						machineMaster.setVisible(true);
 						
@@ -166,6 +166,7 @@ public class Home extends JFrame {
 
 							@Override
 							public void actionPerformed(ActionEvent e) {
+								dispose();
 								PurchaseOrderMaster purchaseOrder=new PurchaseOrderMaster();
 								purchaseOrder.setVisible(true);
 								
@@ -189,7 +190,7 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				
+				dispose();
 				Purchase_Order_Castings po=new Purchase_Order_Castings();
 				po.setVisible(true);
 				
@@ -203,7 +204,7 @@ public class Home extends JFrame {
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Raw Material");
 		mntmNewMenuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				dispose();
 				PoRawMaterial raw=new PoRawMaterial();
 				raw.setVisible(true);
 			
@@ -226,7 +227,7 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				
+				dispose();
 				Grn_Casting casting=new Grn_Casting();
 				casting.setVisible(true);
 				
@@ -238,7 +239,7 @@ public class Home extends JFrame {
 		JMenuItem mntmNewMenuItem_13 = new JMenuItem("GRN-Raw Materials(purchase and return from sub-contractor)");
 		mntmNewMenuItem_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				
 				Grn_RawMaterialReturn retur=new Grn_RawMaterialReturn();
 				retur.setVisible(true);
@@ -251,7 +252,7 @@ public class Home extends JFrame {
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-			
+				dispose();
 
 				Grn_RawMaterialCustomer raw=new Grn_RawMaterialCustomer();
 				raw.setVisible(true);
@@ -265,7 +266,7 @@ public class Home extends JFrame {
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Production Slip");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				ProductionSlip slip=new ProductionSlip();
 				slip.setVisible(true);
 				
@@ -284,7 +285,7 @@ public class Home extends JFrame {
 		mntmMrsrawmaterial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				dispose();
 				Mrs_RawMaterial raw=new Mrs_RawMaterial();
 				raw.setVisible(true);
 				
@@ -295,7 +296,7 @@ public class Home extends JFrame {
 		JMenuItem mntmMrscastings = new JMenuItem("MRS-Castings");
 		mntmMrscastings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				Mrs_Castings cast=new Mrs_Castings();
 				cast.setVisible(true);
 				
@@ -307,7 +308,7 @@ public class Home extends JFrame {
 		JMenuItem menuItem = new JMenuItem("job Work Delivery Chalan(Castings)");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 			Job_Woring_Challan challan=new Job_Woring_Challan();
 			challan.setVisible(true);
 				
@@ -320,7 +321,7 @@ public class Home extends JFrame {
 		mntmJobWorkDelivery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				dispose();
 				JoWorkDeliveryChallan_Raw raw=new JoWorkDeliveryChallan_Raw();
 				raw.setVisible(true);
 			}
@@ -330,7 +331,7 @@ public class Home extends JFrame {
 		JMenuItem mntmLabourInvoiceCum = new JMenuItem("labour Invoice cum delivery challan(Castings)");
 		mntmLabourInvoiceCum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				labourInvoice in=new labourInvoice();
 				in.setVisible(true);
 				
@@ -343,7 +344,7 @@ public class Home extends JFrame {
 		JMenuItem mntmDeliveryChallanrawMaterialscustomers = new JMenuItem("Delivery challan(Raw Materials)-Customers");
 		mntmDeliveryChallanrawMaterialscustomers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				
 				Delivery_Challen challan=new Delivery_Challen();
 				challan.setVisible(true);
@@ -355,7 +356,7 @@ public class Home extends JFrame {
 		mntmSalesInvoiceCum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				dispose();
 				SalesInvoice sales=new SalesInvoice();
 				sales.setVisible(true);
 			}
@@ -366,7 +367,7 @@ public class Home extends JFrame {
 		mntmExortInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				dispose();
 				ExportInvoice invoice=new ExportInvoice();
 				invoice.setVisible(true);
 				

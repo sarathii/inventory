@@ -142,6 +142,7 @@ public class MachineMaster extends JFrame {
 				machineModel.setMcode(mCode.getText());
 				machineModel.setMDes(mDes.getText());
 				session.save(machineModel);
+				session.getTransaction().commit();
 				List<MachineModel> Model = session.createQuery("from MachineModel").list();
 
 				Vector<String> tableHeaders = new Vector<String>();
@@ -162,9 +163,8 @@ public class MachineMaster extends JFrame {
 				table.setModel(new DefaultTableModel(tableData, tableHeaders));
 
 				JOptionPane.showMessageDialog(null, "saved");
-				session.getTransaction().commit();
-				mCode.setText("");
-				mDes.setText("");
+			
+				
 				session.close();
 				sessionFactory.close();
 
@@ -230,7 +230,7 @@ public class MachineMaster extends JFrame {
 					mDes.setText("");
 
 					session.getTransaction().commit();
-
+				
 					List<MachineModel> Model = session.createQuery("from MachineModel").list();
 
 					Vector<String> tableHeaders = new Vector<String>();
@@ -251,16 +251,15 @@ public class MachineMaster extends JFrame {
 					table.setModel(new DefaultTableModel(tableData, tableHeaders));
 
 					// JOptionPane.showMessageDialog(null, "updated");
-					session.getTransaction().commit();
-					mCode.setText("");
-					mDes.setText("");
+				}	
+					
 					session.close();
 					sessionFactory.close();
 
 				}
 
 			}
-		});
+		);
 		button_2.setIcon(new ImageIcon(MachineMaster.class.getResource("/inventory/delete.png")));
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		button_2.setBounds(228, 0, 102, 29);
@@ -307,6 +306,19 @@ public class MachineMaster extends JFrame {
 		contentPane.add(btnNewButton);
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JButton button_3 = new JButton("Home");
+		button_3.setIcon(new ImageIcon(MachineMaster.class.getResource("/inventory/home (1).png")));
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose ();
+				Home hom=new Home();
+				hom.setVisible(true);
+			}
+		});
+		button_3.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button_3.setBounds(332, 0, 102, 29);
+		contentPane.add(button_3);
 
 		ListSelectionModel selectionModel = table.getSelectionModel();
 

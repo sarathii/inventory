@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.JSplitPane;
 
 public class VendorForm extends JFrame {
 
@@ -82,7 +83,7 @@ public class VendorForm extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setBounds(10, 0, 984, 733);
+		panel.setBounds(10, 0, 903, 733);
 		contentPane.add(panel);
 
 		JLabel label = new JLabel("Code");
@@ -176,7 +177,7 @@ public class VendorForm extends JFrame {
 
 		JLabel label_8 = new JLabel("Remarks");
 		label_8.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		label_8.setBounds(446, 52, 86, 19);
+		label_8.setBounds(425, 64, 86, 19);
 		panel.add(label_8);
 
 		JTextArea vremarrks = new JTextArea();
@@ -691,7 +692,7 @@ public class VendorForm extends JFrame {
 		});
 		menuItem_3.setIcon(new ImageIcon(VendorForm.class.getResource("/inventory/delete.png")));
 		menuItem_3.setFont(new Font("Arial", Font.BOLD, 14));
-		menuItem_3.setBounds(403, 13, 129, 29);
+		menuItem_3.setBounds(403, 13, 98, 29);
 		panel.add(menuItem_3);
 
 		JLabel label_17 = new JLabel("Office");
@@ -744,5 +745,26 @@ public class VendorForm extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(VendorForm.class.getResource("/inventory/viw.png")));
 		btnNewButton.setBounds(848, 603, 63, 53);
 		panel.add(btnNewButton);
+		
+		JMenuItem menuItem_4 = new JMenuItem("Home");
+		menuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose ();
+				Home hom=new Home();
+				hom.setVisible(true);
+			}
+		});
+		menuItem_4.setIcon(new ImageIcon(VendorForm.class.getResource("/inventory/home (1).png")));
+		menuItem_4.setFont(new Font("Arial", Font.BOLD, 14));
+		menuItem_4.setBounds(513, 11, 118, 29);
+		panel.add(menuItem_4);
+		
+		JSeparator separator_8 = new JSeparator();
+		separator_8.setBounds(3, 54, 902, 14);
+		panel.add(separator_8);
+		
+		JSeparator separator_7 = new JSeparator();
+		separator_7.setBounds(-1, 56, 892, -20);
+		contentPane.add(separator_7);
 	}
 }

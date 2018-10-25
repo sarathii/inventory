@@ -35,6 +35,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class PurchaseOrderMaster extends JFrame {
 	private JComboBox cusCombo;
@@ -551,6 +553,9 @@ public class PurchaseOrderMaster extends JFrame {
 				session.beginTransaction();
 				PurchaseOrderModel pom=new PurchaseOrderModel();
 				pom.setPoNo(Long.parseLong(po.getText()));
+				int result = JOptionPane.showConfirmDialog(null,
+						"Are you sure you delete   " + po.getText() + "  ?", null, JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
 				session.delete(pom);
 				session.getTransaction().commit();
 				cusCombo.setSelectedIndex(0);
@@ -567,7 +572,7 @@ cgst.setText("");
 sgst.setText("");
 				
 				
-
+				}
 				@SuppressWarnings("unchecked")
 				List<PurchaseOrderModel> products = session.createQuery("from PurchaseOrderModel").list();
 
@@ -802,5 +807,18 @@ sgst.setText("");
 		btnNewButton.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/viw.png")));
 		btnNewButton.setBounds(797, 390, 70, 67);
 		contentPane.add(btnNewButton);
+		
+		JButton button_4 = new JButton("Home");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose ();
+				Home hom=new Home();
+				hom.setVisible(true);
+			}
+		});
+		button_4.setIcon(new ImageIcon(PurchaseOrderMaster.class.getResource("/inventory/home (1).png")));
+		button_4.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button_4.setBounds(449, 0, 102, 29);
+		contentPane.add(button_4);
 	}
 }

@@ -70,6 +70,7 @@ public class CustomerForm {
 	public JTextField div;
 	public JTextField range;
 	public JTextField std;
+	JLabel error1;
 	private JTextField textField_15;
 	private final JSeparator separator_4 = new JSeparator();
 	private final JSeparator separator_5 = new JSeparator();
@@ -464,13 +465,26 @@ public class CustomerForm {
 				customerModel.setUrl(url.getText());
 				customerModel.setVendor(vendor.getText());
 
-				if (address.getText().length() == 0) {
-
-					JOptionPane.showMessageDialog(null, "valuue");
+				if (address.getText().length()==0)
+					{
+					error1.setText("*enter address");
+					}
+				else if(contact.getText().length() == 0){
+					error1.setText("*enter contact number");
 				}
-				JOptionPane.showMessageDialog(null, "saved");
+				else if(email.getText().length() == 0) {
+
+					error1.setText("*enter email");
+				}
+				else if(!email.getText().contains("@")||!email.getText().contains(".")){
+					JOptionPane.showMessageDialog(null, "enter email properly");
+					
+				}
+				else{
 				session.save(customerModel);
 
+				JOptionPane.showMessageDialog(null, "saved");
+				}
 				@SuppressWarnings("unchecked")
 				List<CustomerModel> products = session.createQuery("from CustomerModel").list();
 
@@ -750,8 +764,41 @@ public class CustomerForm {
 
 				CustomerModel customerModel = new CustomerModel();
 				customerModel.setCode(code1.getText());
+				int result = JOptionPane.showConfirmDialog(null,
+						"Are you sure you delete   " + code1.getText() + "  ?", null, JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
 				session.delete(customerModel);
 				session.getTransaction().commit();
+				
+				code1.setText("");
+				
+				address.setText("");
+				city.setText("");
+				contact.setText("");
+				deliver.setText("");
+				designation.setText("");
+				destination.setText("");
+				div.setText("");
+				ecc.setText("");
+				fax.setText("");
+				email.setText("");
+				factory.setText("");
+				gst.setText("");
+				mobile.setText("");
+				office.setText("");
+				pager.setText("");
+				pan.setText("");
+				pincode.setText("");
+				range.setText("");
+				remarks.setText("");
+				std.setText("");
+				url.setText("");
+				vendor.setText("");
+				name.setText("");
+				
+				
+				
+				}
 				@SuppressWarnings("unchecked")
 				List<CustomerModel> products = session.createQuery("from CustomerModel").list();
 
@@ -883,7 +930,7 @@ public class CustomerForm {
 		separator_9.setBounds(10, 37, 911, 2);
 		frmCustomerDetail.getContentPane().add(separator_9);
 
-		JLabel error1 = new JLabel("");
+		error1 = new JLabel("");
 		error1.setForeground(Color.RED);
 		error1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		error1.setBounds(343, 269, 458, 20);
@@ -900,5 +947,23 @@ public class CustomerForm {
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		label_1.setBounds(632, 576, 258, 20);
 		frmCustomerDetail.getContentPane().add(label_1);
+		
+		JMenuItem menuItem = new JMenuItem("Home");
+		menuItem.setIcon(new ImageIcon(CustomerForm.class.getResource("/inventory/home (1).png")));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			CustomerForm f=new CustomerForm();
+		//	this.setVisible(false);
+			Home hom=new Home();
+				hom.setVisible (true);
+			}
+		});
+		menuItem.setFont(new Font("Arial", Font.BOLD, 14));
+		menuItem.setBounds(553, 4, 129, 29);
+		frmCustomerDetail.getContentPane().add(menuItem);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setBounds(387, 275, 46, 14);
+		frmCustomerDetail.getContentPane().add(label_2);
 	}
 }

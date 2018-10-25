@@ -38,6 +38,7 @@ public class Raw extends JFrame {
 	private JTextField rawCode;
 	private JTextField rawDes;
 	private JButton btnNewButton;
+	private JButton button;
 
 	/**
 	 * Launch the application.
@@ -94,6 +95,11 @@ public class Raw extends JFrame {
 				sessionFactory.close();
 			
 
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Home h=new Home();
+				h.setVisible(true);
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -213,7 +219,8 @@ public class Raw extends JFrame {
 				session.close();
 				sessionFactory.close();
 				
-
+rawCode.setText("");
+rawDes.setText("");
 			}
 		});
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -247,7 +254,8 @@ public class Raw extends JFrame {
 						"Are you sure you delete   " + rawCode.getText() + "  ?", null, JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					session.delete(raw);
-
+					rawCode.setText("");
+					rawDes.setText("");
 					session.getTransaction().commit();
 				}
 
@@ -300,6 +308,19 @@ public class Raw extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(Raw.class.getResource("/inventory/viw.png")));
 		btnNewButton.setBounds(662, 192, 77, 48);
 		contentPane.add(btnNewButton);
+		
+		button = new JButton("Home");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose ();
+				Home hom=new Home();
+				hom.setVisible(true);
+			}
+		});
+		button.setIcon(new ImageIcon(Raw.class.getResource("/inventory/home (1).png")));
+		button.setFont(new Font("Tahoma", Font.BOLD, 14));
+		button.setBounds(323, 0, 102, 29);
+		contentPane.add(button);
 	}
 
 

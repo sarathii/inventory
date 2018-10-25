@@ -523,6 +523,19 @@ public class MouldMaster extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(MouldMaster.class.getResource("/inventory/viw.png")));
 		btnNewButton.setBounds(604, 381, 89, 47);
 		contentPane.add(btnNewButton);
+		
+		JMenuItem mntmHome = new JMenuItem("Home");
+		mntmHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose ();
+				Home hom=new Home();
+				hom.setVisible(true);
+			}
+		});
+		mntmHome.setIcon(new ImageIcon(MouldMaster.class.getResource("/inventory/home (1).png")));
+		mntmHome.setFont(new Font("Arial", Font.BOLD, 14));
+		mntmHome.setBounds(577, 8, 129, 29);
+		contentPane.add(mntmHome);
 
 	}
 }
