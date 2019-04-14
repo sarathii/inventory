@@ -1,17 +1,24 @@
 package com.inventory.frames;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Window;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.PrintWriter;
+import java.net.URI;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import com.inventory.model.CustomerModel;
-import com.inventory.model.Po_CastingModel;
 import com.inventory.transaction.issues.Delivery_Challen;
 import com.inventory.transaction.issues.ExportInvoice;
 import com.inventory.transaction.issues.JoWorkDeliveryChallan_Raw;
@@ -26,17 +33,6 @@ import com.inventory.transaction.receipts.Grn_Casting;
 import com.inventory.transaction.receipts.Grn_RawMaterialCustomer;
 import com.inventory.transaction.receipts.Grn_RawMaterialReturn;
 import com.inventory.transaction.receipts.ProductionSlip;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.Font;
 
 public class Home extends JFrame {
 
@@ -432,19 +428,119 @@ public class Home extends JFrame {
 		
 		JMenuItem mntmLabourInvoiceRegisterpartcode = new JMenuItem("Labour Invoice Register-partcode wise");
 		mnNewMenu_2.add(mntmLabourInvoiceRegisterpartcode);
+		
+		JMenuItem mntmNewMenuItem_20 = new JMenuItem("Elasticsearch");
+		mntmNewMenuItem_20.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				Process rt =Runtime.getRuntime().exec("cmd /c start "+"D:/downloads/elasticsearch-6.5.4/elasticsearch-6.5.4/bin/elasticsearch.bat");
+				}
+				catch(Exception e)
+				{
+					System.out.println(e);
+				}
+				
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_20);
+		
+		JMenuItem mntmLogstash = new JMenuItem("logstash");
+		mntmLogstash.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					PrintWriter pw =new PrintWriter("lat.bat");
+					pw.println("D:");
+					pw.println("cd downloads");
+					pw.println("cd logstash-6.5.4");
+					pw.println("cd logstash-6.5.4");
+					pw.println("cd bin");
+					pw.println("logstash -f  D:\\downloads\\logstash-6.5.4\\logstash-6.5.4\\config\\jdbcdemo.conf ");
+					pw.close();
+				Runtime rt =Runtime.getRuntime();
+				rt.exec("cmd /c start "+"lat.bat");
+			//	rt.exec("cmd /c start "+"D:/downloads/logstash-6.5.4/logstash-6.5.4/bin");
+				}
+				catch(Exception e1){
+					System.out.println(e1);
+				}
+				
+				
+				
+			}
+		});
+		mnNewMenu_2.add(mntmLogstash);
+		
+		JMenuItem mntmNewMenuItem_21 = new JMenuItem("kibana");
+		mntmNewMenuItem_21.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					Process rt =Runtime.getRuntime().exec("cmd /c start "+"D:/downloads/kibana-6.5.4-windows-x86_64/bin/kibana.bat");
+					}
+					catch(Exception e3)
+					{
+						System.out.println(e3);
+					}
+					
+				}
+				
+				
+				
+			
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_21);
+		
+		JMenuItem mntmOpenVisualization = new JMenuItem("open visualization");
+		mntmOpenVisualization.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+				
+				
+				  Desktop d=Desktop.getDesktop();
+
+			        // Browse a URL, say google.com
+			        d.browse(new URI("http://localhost:5601"));
+				}
+				catch(Exception x)
+				{
+					System.out.println(x);
+				}
+			}
+		});
+		mnNewMenu_2.add(mntmOpenVisualization);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(Home.class.getResource("/inventory/soln.jpg")));
-		lblNewLabel.setBounds(0, 0, 619, 335);
-		contentPane.add(lblNewLabel);
-		
 		JMenuItem menuItem_1 = new JMenuItem("");
 		menuItem_1.setBounds(385, 60, 129, 22);
 		contentPane.add(menuItem_1);
+		
+		JButton profile = new JButton("Profile");
+		profile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+
+				dispose();
+			Profile pro=new Profile();
+				pro.setVisible(true);	
+				
+				
+				
+				
+			}
+		});
+		profile.setBackground(Color.WHITE);
+		profile.setBounds(520, 0, 89, 45);
+		contentPane.add(profile);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(Home.class.getResource("/inventory/soln.jpg")));
+		lblNewLabel.setBounds(10, 0, 619, 335);
+		contentPane.add(lblNewLabel);
 		
 		
 	
@@ -457,7 +553,4 @@ public class Home extends JFrame {
 		
 		
 	}
-
-	
-	
 }

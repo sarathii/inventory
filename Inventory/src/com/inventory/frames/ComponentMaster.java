@@ -517,47 +517,43 @@ public class ComponentMaster extends JFrame {
 				componentModel.setMouldCode(hsnCode.getText());
 				componentModel.setFrom1(new Date(from1.getText()));
 
-				if (!from2.getText().isEmpty()) {
+				
 					componentModel.setFrom2(new Date(from2.getText()));
-				}
+				
 
-				if (!from3.getText().isEmpty()) {
+				
 					componentModel.setFrom3(new Date(from3.getText()));
-				}
-
-				if (!from4.getText().isEmpty()) {
+				
 					componentModel.setFrom4(new Date(from4.getText()));
-				}
+				
 
-				if (!to1.getText().isEmpty()) {
+				
 					componentModel.setTo1(new Date(to1.getText()));
-				}
+				
 
-				if (!to2.getText().isEmpty()) {
 					componentModel.setTo2(new Date(to2.getText()));
-				}
+				
 
-				if (!to3.getText().isEmpty()) {
+			
 					componentModel.setTo3(new Date(to3.getText()));
-				}
+				
 
-				if (!to4.getText().isEmpty()) {
+				
 					componentModel.setTo4(new Date(to4.getText()));
-				}
+			
 
 				componentModel.setNorm1(Long.parseLong(norm1.getText()));
 
-				if (!norm2.getText().isEmpty()) {
+			
 					componentModel.setNorm2(Long.parseLong(norm2.getText()));
 
-				}
-				if (!norm3.getText().isEmpty()) {
+				
+				
 					componentModel.setNorm3(Long.parseLong(norm3.getText()));
-				}
-				if (!norm4.getText().isEmpty()) {
+			
 					componentModel.setNorm4(Long.parseLong(norm4.getText()));
 
-				}
+				
 				// componentModel.setTo1(new Date(to1.getText()));
 
 				componentModel.setAmValue(Long.parseLong(aValue.getText()));

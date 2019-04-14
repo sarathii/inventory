@@ -170,10 +170,10 @@ public class PoRawMaterial extends JFrame {
 
 		JLabel label = new JLabel("Vendor Code");
 		label.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		label.setBounds(10, 22, 101, 14);
+		label.setBounds(19, 22, 101, 14);
 		panel.add(label);
 		comboBox = new JComboBox();
-		comboBox.setBounds(105, 20, 58, 20);
+		comboBox.setBounds(130, 20, 58, 20);
 		panel.add(comboBox);
 
 		JTextArea adrs = new JTextArea();

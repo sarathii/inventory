@@ -636,7 +636,7 @@ public class Purchase_Order_Castings extends JFrame {
 				//String pri = comboBox.getSelectedItem().toString();
 				@SuppressWarnings("unchecked")
 				List<CastingTableModel> products = session
-						.createQuery("from CastingTableModel model where model.v_code='ven'").list();
+						.createQuery("from CastingTableModel model ").list();
 				// query.setParameter("pri", "%" + pri + "%");
 				Vector<String> tableHeaders = new Vector<String>();
 				Vector tableData = new Vector();
